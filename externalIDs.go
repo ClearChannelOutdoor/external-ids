@@ -10,14 +10,7 @@ const (
 )
 
 func FormatIOOrderID(orderID interface{}) string {
-	var parsedOrderID string
-	value, isString := orderID.(string)
-	if !isString {
-		parsedOrderID = fmt.Sprintf("%v", orderID)
-	} else {
-		parsedOrderID = value
-	}
-	return format(ioOrderIDPrefix, parsedOrderID)
+	return format(ioOrderIDPrefix, fmt.Sprint(orderID))
 }
 
 func format(prefix string, identifier string) string {
