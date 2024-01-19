@@ -6,11 +6,16 @@ import (
 )
 
 const (
-	ioOrderIDPrefix = "io:order:"
+	ioBookingIDPrefix = "io:booking:"
+	ioOrderIDPrefix   = "io:order:"
 )
 
 func FormatIOOrderID(orderID interface{}) string {
 	return format(ioOrderIDPrefix, fmt.Sprint(orderID))
+}
+
+func FormatIOBookingID(bookingID interface{}) string {
+	return format(ioBookingIDPrefix, fmt.Sprint(bookingID))
 }
 
 func format(prefix string, identifier string) string {
