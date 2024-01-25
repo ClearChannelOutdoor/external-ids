@@ -6,16 +6,53 @@ import (
 )
 
 const (
-	ioBookingIDPrefix = "io:booking:"
-	ioOrderIDPrefix   = "io:order:"
+	extAgencyCodePrefi         = "agency:code:"
+	geopathSegmentCodePrefix   = "geopath:segmentCode:"
+	geopathTargetProfilePrefix = "geopath:targetProfile:"
+	ioBookingIDPrefix          = "io:booking:"
+	ioEmployeeeNumberPrefix    = "io:employee:"
+	ioOrderIDPrefix            = "io:order:"
+	ioOrderNumberPrefix        = "io:orderNumber:"
+	ioOrderMarketIDPrefix      = "io:orderMarket:"
+
+	quattroDbPrefix       = "quattro_:"
+	quattroCampaignPrefix = "campaign:"
 )
+
+func FormatExtAgencyCode(code interface{}) string {
+	return format(extAgencyCodePrefi, fmt.Sprint(code))
+}
+func FormatGeopathSegmentCode(code interface{}) string {
+	return format(geopathSegmentCodePrefix, fmt.Sprint(code))
+}
+
+func FormatGeopathTargetProfile(code interface{}) string {
+	return format(geopathTargetProfilePrefix, fmt.Sprint(code))
+}
 
 func FormatIOOrderID(orderID interface{}) string {
 	return format(ioOrderIDPrefix, fmt.Sprint(orderID))
 }
 
+func FormatIOOrderNumber(number interface{}) string {
+	return format(ioOrderNumberPrefix, fmt.Sprint(number))
+}
+
 func FormatIOBookingID(bookingID interface{}) string {
 	return format(ioBookingIDPrefix, fmt.Sprint(bookingID))
+}
+
+func FormatIOEmployeeNumber(number interface{}) string {
+	return format(ioEmployeeeNumberPrefix, fmt.Sprint(number))
+}
+
+func FormatQuattroCampaign(marketCode string, campaignId interface{}) string {
+	key := formatQuattroKey(quattroCampaignPrefix, marketCode)
+	return format(key, fmt.Sprint(campaignId))
+}
+
+func formatQuattroKey(prefix string, marketCode string) string {
+	return format(quattroDbPrefix, marketCode)
 }
 
 func format(prefix string, identifier string) string {
