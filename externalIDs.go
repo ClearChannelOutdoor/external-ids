@@ -12,7 +12,7 @@ const (
 	ioBookingIDPrefix          = "io:booking:"
 	ioEmployeeeNumberPrefix    = "io:employee:"
 	ioOrderIDPrefix            = "io:order:"
-	ioOrderMarketIDPrefix      = "io:order:"
+	ioOrderMarketIDPrefix      = "io:orderMarket:"
 
 	quattroDbPrefix       = "quattro_:"
 	quattroCampaignPrefix = "campaign:"
