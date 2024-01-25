@@ -12,6 +12,7 @@ const (
 	ioBookingIDPrefix          = "io:booking:"
 	ioEmployeeeNumberPrefix    = "io:employee:"
 	ioOrderIDPrefix            = "io:order:"
+	ioOrderNumberPrefix        = "io:orderNumber:"
 	ioOrderMarketIDPrefix      = "io:orderMarket:"
 
 	quattroDbPrefix       = "quattro_:"
@@ -31,6 +32,10 @@ func FormatGeopathTargetProfile(code interface{}) string {
 
 func FormatIOOrderID(orderID interface{}) string {
 	return format(ioOrderIDPrefix, fmt.Sprint(orderID))
+}
+
+func FormatIOOrderNumber(number interface{}) string {
+	return format(ioOrderNumberPrefix, fmt.Sprint(number))
 }
 
 func FormatIOBookingID(bookingID interface{}) string {
