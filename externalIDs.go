@@ -17,6 +17,7 @@ const (
 
 	quattroDbPrefix       = "quattro_:"
 	quattroCampaignPrefix = "campaign:"
+	quattroPanelID        = ":display:"
 )
 
 func FormatExtAgencyCode(code interface{}) string {
@@ -49,6 +50,11 @@ func FormatIOEmployeeNumber(number interface{}) string {
 func FormatQuattroCampaign(marketCode string, campaignId interface{}) string {
 	key := formatQuattroKey(quattroCampaignPrefix, marketCode)
 	return format(key, fmt.Sprint(campaignId))
+}
+
+func FormatQuattroPanelID(sourceDB string, panelID interface{}) string {
+	key := fmt.Sprintf("%s%s", sourceDB, quattroPanelID)
+	return format(key, fmt.Sprint(panelID))
 }
 
 func formatQuattroKey(prefix string, marketCode string) string {
