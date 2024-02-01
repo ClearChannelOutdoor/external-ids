@@ -9,7 +9,9 @@ const (
 	extAgencyCodePrefi         = "agency:code:"
 	geopathSegmentCodePrefix   = "geopath:segmentCode:"
 	geopathTargetProfilePrefix = "geopath:targetProfile:"
+	ioAccountIdPrefix          = "io:account:"
 	ioBookingIDPrefix          = "io:booking:"
+	ioCustomerPrefix           = "io:customer:"
 	ioEmployeeeNumberPrefix    = "io:employee:"
 	ioOrderIDPrefix            = "io:order:"
 	ioOrderNumberPrefix        = "io:orderNumber:"
@@ -19,6 +21,14 @@ const (
 	quattroCampaignPrefix = "campaign:"
 	quattroPanelID        = ":display:"
 )
+
+func FormatIOAccount(id interface{}) string {
+	return format(ioAccountIdPrefix, fmt.Sprint(id))
+}
+
+func FormatIOCustomer(id interface{}) string {
+	return format(ioCustomerPrefix, fmt.Sprint(id))
+}
 
 func FormatExtAgencyCode(code interface{}) string {
 	return format(extAgencyCodePrefi, fmt.Sprint(code))
