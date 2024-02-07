@@ -13,8 +13,11 @@ const (
 	ioBookingIDPrefix          = "io:booking:"
 	ioCustomerPrefix           = "io:customer:"
 	ioEmployeeeNumberPrefix    = "io:employee:"
+	ioMarketPrefix             = "io:market:"
 	ioOrderIDPrefix            = "io:order:"
 	ioOrderNumberPrefix        = "io:orderNumber:"
+	ioOrderLinePrefix          = "io:orderLine:"
+	ioOrderLineTypePrefix      = "io:orderLineType:"
 	ioOrderMarketIDPrefix      = "io:orderMarket:"
 
 	quattroDbPrefix       = "quattro_:"
@@ -49,12 +52,28 @@ func FormatIOOrderNumber(number interface{}) string {
 	return format(ioOrderNumberPrefix, fmt.Sprint(number))
 }
 
+func FormatIOOrderLine(id interface{}) string {
+	return format(ioOrderLinePrefix, fmt.Sprint(id))
+}
+
+func FormatIOOrderLineType(id interface{}) string {
+	return format(ioOrderLineTypePrefix, fmt.Sprint(id))
+}
+
+func FormatIOOrderMarket(id interface{}) string {
+	return format(ioOrderMarketIDPrefix, fmt.Sprint(id))
+}
+
 func FormatIOBookingID(bookingID interface{}) string {
 	return format(ioBookingIDPrefix, fmt.Sprint(bookingID))
 }
 
 func FormatIOEmployeeNumber(number interface{}) string {
 	return format(ioEmployeeeNumberPrefix, fmt.Sprint(number))
+}
+
+func FormatIOMarket(id interface{}) string {
+	return format(ioMarketPrefix, fmt.Sprint(id))
 }
 
 func FormatQuattroCampaign(marketCode string, campaignId interface{}) string {
