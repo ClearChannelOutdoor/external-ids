@@ -17,6 +17,7 @@ const (
 	ioOrderIDPrefix            = "io:order:"
 	ioOrderNumberPrefix        = "io:orderNumber:"
 	ioOrderLinePrefix          = "io:orderLine:"
+	ioOrderLineTypePrefix      = "io:orderLineType:"
 	ioOrderMarketIDPrefix      = "io:orderMarket:"
 
 	quattroDbPrefix       = "quattro_:"
@@ -53,6 +54,10 @@ func FormatIOOrderNumber(number interface{}) string {
 
 func FormatIOOrderLine(id interface{}) string {
 	return format(ioOrderLinePrefix, fmt.Sprint(id))
+}
+
+func FormatIOOrderLineType(id interface{}) string {
+	return format(ioOrderLineTypePrefix, fmt.Sprint(id))
 }
 
 func FormatIOOrderMarket(id interface{}) string {
