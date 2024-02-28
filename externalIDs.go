@@ -23,6 +23,7 @@ const (
 	quattroDbPrefix              = "quattro_"
 	quattroCampaignPrefix        = ":campaign:"
 	quattroCampaignSegmentPrefix = ":campaignSegment:"
+	quattroCampaignDetailPrefix  = ":campaignDetail:"
 	quattroDisplayID             = ":display:"
 )
 
@@ -83,6 +84,10 @@ func FormatQuattroCampaign(marketCode string, campaignId interface{}) string {
 
 func FormatQuattroCampaignSegment(marketCode string, segmentId interface{}) string {
 	return formatQuattroKey(marketCode, quattroCampaignSegmentPrefix, fmt.Sprint(segmentId))
+}
+
+func FormatQuattroDetailSegment(marketCode string, detailId interface{}) string {
+	return formatQuattroKey(marketCode, quattroCampaignDetailPrefix, fmt.Sprint(detailId))
 }
 
 func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
