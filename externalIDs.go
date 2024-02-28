@@ -20,9 +20,10 @@ const (
 	ioOrderLineTypePrefix      = "io:orderLineType:"
 	ioOrderMarketIDPrefix      = "io:orderMarket:"
 
-	quattroDbPrefix       = "quattro_:"
-	quattroCampaignPrefix = "campaign:"
-	quattroPanelID        = ":display:"
+	quattroDbPrefix              = "quattro_"
+	quattroCampaignPrefix        = ":campaign:"
+	quattroCampaignSegmentPrefix = ":campaignSegment:"
+	quattroDisplayID             = ":display:"
 )
 
 func FormatIOAccount(id interface{}) string {
@@ -77,17 +78,21 @@ func FormatIOMarket(id interface{}) string {
 }
 
 func FormatQuattroCampaign(marketCode string, campaignId interface{}) string {
-	key := formatQuattroKey(quattroCampaignPrefix, marketCode)
-	return format(key, fmt.Sprint(campaignId))
+	return formatQuattroKey(marketCode, quattroCampaignPrefix, fmt.Sprint(campaignId))
 }
 
-func FormatQuattroPanelID(sourceDB string, panelID interface{}) string {
-	key := fmt.Sprintf("%s%s", sourceDB, quattroPanelID)
-	return format(key, fmt.Sprint(panelID))
+func FormatQuattroCampaignSegment(marketCode string, segmentId interface{}) string {
+	return formatQuattroKey(marketCode, quattroCampaignSegmentPrefix, fmt.Sprint(segmentId))
 }
 
-func formatQuattroKey(prefix string, marketCode string) string {
-	return format(quattroDbPrefix, marketCode)
+func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
+	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
+}
+
+func formatQuattroKey(marketCode string, entity string, id string) string {
+	quattroKey := format(quattroDbPrefix, marketCode)
+	prefix := format(quattroKey, entity)
+	return format(prefix, id)
 }
 
 func format(prefix string, identifier string) string {
