@@ -86,7 +86,7 @@ func FormatQuattroCampaignSegment(marketCode string, segmentId interface{}) stri
 	return formatQuattroKey(marketCode, quattroCampaignSegmentPrefix, fmt.Sprint(segmentId))
 }
 
-func FormatQuattroDetailSegment(marketCode string, detailId interface{}) string {
+func FormatQuattroCampaignDetail(marketCode string, detailId interface{}) string {
 	return formatQuattroKey(marketCode, quattroCampaignDetailPrefix, fmt.Sprint(detailId))
 }
 

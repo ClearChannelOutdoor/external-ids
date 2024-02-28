@@ -22,6 +22,16 @@ func Test_FormatQuattroCampaignSegment(t *testing.T) {
 	}
 }
 
+func Test_FormatQuattroCampaignDetail(t *testing.T) {
+	mar := "CHI"
+	id := "1234"
+
+	detailId := FormatQuattroCampaignDetail(mar, id)
+	if detailId != "quattro_CHI:campaignDetail:1234" {
+		t.Errorf("bad quattro campaignSegment format; expected: %s; got: %s", "quattro_CHI:campaignDetail:1234", detailId)
+	}
+}
+
 func Test_FormatQuattroDisplayID(t *testing.T) {
 	mar := "CHI"
 	id := "1234"
