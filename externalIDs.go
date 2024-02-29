@@ -97,7 +97,7 @@ func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 
 func GetLegacyIOEntityNumericID(externalIDs []string, entity string) (*int, bool) {
 	for _, externalID := range externalIDs {
-		// if externalID does not begin with io:{entity} return nil,false
+		// if externalID does not begin with io:{entity}
 		if !strings.HasPrefix(externalID, fmt.Sprintf("io:%s:", entity)) {
 			// skip this iteration
 			continue
