@@ -2,6 +2,7 @@ package externalIDs
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -92,6 +93,40 @@ func FormatQuattroCampaignDetail(marketCode string, detailId interface{}) string
 
 func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
+}
+
+func GetLegacyIODisplayID(externalIDs []string) *int {
+	return getLegacyIOEntityNumericID(externalIDs, "display")
+}
+
+func getLegacyIOEntityNumericID(externalIDs []string, entity string) *int {
+	for _, externalID := range externalIDs {
+		// if externalID does not begin with io:{entity}
+		if !strings.HasPrefix(externalID, fmt.Sprintf("io:%s:", entity)) {
+			// skip this iteration
+			continue
+		}
+
+		//split the externalID into a 3-part array on the : character
+		externalIDParts := strings.Split(externalID, ":")
+		if len(externalIDParts) != 3 {
+			continue
+		}
+
+		// if entity part doesn't match requested type
+		if externalIDParts[1] != entity {
+			continue
+		}
+
+		// convert externalIDParts[2] to int
+		intID, err := strconv.Atoi(externalIDParts[2])
+		if err != nil {
+			continue
+		}
+
+		return &intID
+	}
+	return nil
 }
 
 func formatQuattroKey(marketCode string, entity string, id string) string {
