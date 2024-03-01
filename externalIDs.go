@@ -95,7 +95,11 @@ func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
 }
 
-func GetLegacyIOEntityNumericID(externalIDs []string, entity string) (*int, bool) {
+func GetLegacyIODisplayID(externalIDs []string) *int {
+	return getLegacyIOEntityNumericID(externalIDs, "display")
+}
+
+func getLegacyIOEntityNumericID(externalIDs []string, entity string) *int {
 	for _, externalID := range externalIDs {
 		// if externalID does not begin with io:{entity}
 		if !strings.HasPrefix(externalID, fmt.Sprintf("io:%s:", entity)) {
@@ -120,9 +124,9 @@ func GetLegacyIOEntityNumericID(externalIDs []string, entity string) (*int, bool
 			continue
 		}
 
-		return &intID, true
+		return &intID
 	}
-	return nil, false
+	return nil
 }
 
 func formatQuattroKey(marketCode string, entity string, id string) string {
