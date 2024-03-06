@@ -42,6 +42,26 @@ func Test_FormatQuattroDisplayID(t *testing.T) {
 	}
 }
 
+func Test_FormatQuattroBookingID(t *testing.T) {
+	mar := "CHI"
+	id := "1234"
+
+	extId := FormatQuattroBookingID(mar, id)
+	if extId != "quattro_CHI:booking:1234" {
+		t.Errorf("bad quattro display format; expected: %s; got: %s", "quattro_CHI:booking:1234", extId)
+	}
+}
+
+func Test_FormatQuattroDigitalBookingID(t *testing.T) {
+	mar := "CHI"
+	id := "1234"
+
+	extId := FormatQuattroDigitalBookingID(mar, id)
+	if extId != "quattro_CHI:digitalBooking:1234" {
+		t.Errorf("bad quattro display format; expected: %s; got: %s", "quattro_CHI:digitalBooking:1234", extId)
+	}
+}
+
 func Test_GetIOLegacyDisplayID(t *testing.T) {
 	extId := []string{"io:display:1234"}
 	id := GetLegacyIODisplayID(extId)
