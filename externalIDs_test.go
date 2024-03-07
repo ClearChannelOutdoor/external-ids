@@ -109,3 +109,12 @@ func Test_GetIOLegacyDisplayID_NonNumericID(t *testing.T) {
 		t.Errorf("expected nil got %d", id)
 	}
 }
+
+// test getting site code
+func Test_GetLegacySiteCode(t *testing.T) {
+	extId := []string{"io:site:1234"}
+	id := GetLegacySiteCode(extId)
+	if *id != 1234 {
+		t.Errorf("bad site_code format; expected: %d; got: %d", 1234, *id)
+	}
+}
