@@ -105,6 +105,10 @@ func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
 }
 
+func GetLegacySiteCode(externalIDs []string) *int {
+	return getLegacyIOEntityNumericID(externalIDs, "site")
+}
+
 func GetLegacyIODisplayID(externalIDs []string) *int {
 	return getLegacyIOEntityNumericID(externalIDs, "display")
 }
