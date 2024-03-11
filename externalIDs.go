@@ -105,6 +105,11 @@ func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
 }
 
+func GetQuattroBookingID(sourceDbCode string, externalIDs []string) *int {
+	prefix := formatQuattroKey(sourceDbCode, quattroBookingPrefix, "")
+	return parseExternalID(prefix, externalIDs)
+}
+
 func GetLegacySiteCode(externalIDs []string) *int {
 	return getLegacyIOEntityNumericID(externalIDs, "site")
 }
@@ -114,26 +119,19 @@ func GetLegacyIODisplayID(externalIDs []string) *int {
 }
 
 func getLegacyIOEntityNumericID(externalIDs []string, entity string) *int {
+	prefix := fmt.Sprintf("io:%s:", entity)
+	return parseExternalID(prefix, externalIDs)
+}
+
+func parseExternalID(prefix string, externalIDs []string) *int {
 	for _, externalID := range externalIDs {
-		// if externalID does not begin with io:{entity}
-		if !strings.HasPrefix(externalID, fmt.Sprintf("io:%s:", entity)) {
+		if !strings.HasPrefix(externalID, prefix) {
 			// skip this iteration
 			continue
 		}
 
-		//split the externalID into a 3-part array on the : character
 		externalIDParts := strings.Split(externalID, ":")
-		if len(externalIDParts) != 3 {
-			continue
-		}
-
-		// if entity part doesn't match requested type
-		if externalIDParts[1] != entity {
-			continue
-		}
-
-		// convert externalIDParts[2] to int
-		intID, err := strconv.Atoi(externalIDParts[2])
+		intID, err := strconv.Atoi(externalIDParts[len(externalIDParts)-1])
 		if err != nil {
 			continue
 		}

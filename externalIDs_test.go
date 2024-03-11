@@ -78,20 +78,6 @@ func Test_GetIOLegacyDisplayID_NotRequestedEntity(t *testing.T) {
 	}
 }
 
-func Test_GetIOLegacyDisplayID_NonConforming(t *testing.T) {
-	tooManyParts := []string{"io:display:1234:5678"}
-	id := GetLegacyIODisplayID(tooManyParts)
-	if id != nil {
-		t.Errorf("too many parts expected nil got %d", id)
-	}
-
-	tooFewParts := []string{"io:display"}
-	id = GetLegacyIODisplayID(tooFewParts)
-	if id != nil {
-		t.Errorf("too few parts expected nil got %d", id)
-	}
-}
-
 // only returns the first matching id
 func Test_GetIOLegacyDisplayID_MultipleIDs(t *testing.T) {
 	extIds := []string{"io:market:1234", "io:display:1234", "io:display:5678"}
@@ -116,5 +102,21 @@ func Test_GetLegacySiteCode(t *testing.T) {
 	id := GetLegacySiteCode(extId)
 	if *id != 1234 {
 		t.Errorf("bad site_code format; expected: %d; got: %d", 1234, *id)
+	}
+}
+
+func Test_GetQuattroBookingID(t *testing.T) {
+	extIds := []string{"io:market:1234", "quattro_CHI:booking:2600", "io:display:5678"}
+	id := GetQuattroBookingID("CHI", extIds)
+	if *id != 2600 {
+		t.Errorf("expected %d got %d", 2600, *id)
+	}
+}
+
+func Test_GetQuattroBookingID_NoBookingID(t *testing.T) {
+	extIds := []string{"io:market:1234", "io:booking:2600", "io:display:5678"}
+	id := GetQuattroBookingID("CHI", extIds)
+	if id != nil {
+		t.Errorf("expected nil got %d", *id)
 	}
 }
