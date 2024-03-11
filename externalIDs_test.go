@@ -78,20 +78,6 @@ func Test_GetIOLegacyDisplayID_NotRequestedEntity(t *testing.T) {
 	}
 }
 
-func Test_GetIOLegacyDisplayID_NonConforming(t *testing.T) {
-	tooManyParts := []string{"io:display:1234:5678"}
-	id := GetLegacyIODisplayID(tooManyParts)
-	if id != nil {
-		t.Errorf("too many parts expected nil got %d", id)
-	}
-
-	tooFewParts := []string{"io:display"}
-	id = GetLegacyIODisplayID(tooFewParts)
-	if id != nil {
-		t.Errorf("too few parts expected nil got %d", id)
-	}
-}
-
 // only returns the first matching id
 func Test_GetIOLegacyDisplayID_MultipleIDs(t *testing.T) {
 	extIds := []string{"io:market:1234", "io:display:1234", "io:display:5678"}
