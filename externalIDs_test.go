@@ -118,3 +118,19 @@ func Test_GetLegacySiteCode(t *testing.T) {
 		t.Errorf("bad site_code format; expected: %d; got: %d", 1234, *id)
 	}
 }
+
+func Test_GetQuattroBookingID(t *testing.T) {
+	extIds := []string{"io:market:1234", "quattro_CHI:booking:2600", "io:display:5678"}
+	id := GetQuattroBookingID("CHI", extIds)
+	if *id != 2600 {
+		t.Errorf("expected %d got %d", 2600, *id)
+	}
+}
+
+func Test_GetQuattroBookingID_NoBookingID(t *testing.T) {
+	extIds := []string{"io:market:1234", "io:booking:2600", "io:display:5678"}
+	id := GetQuattroBookingID("CHI", extIds)
+	if id != nil {
+		t.Errorf("expected nil got %d", *id)
+	}
+}

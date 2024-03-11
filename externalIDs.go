@@ -105,6 +105,25 @@ func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
 }
 
+func GetQuattroBookingID(sourceDbCode string, externalIDs []string) *int {
+	prefix := formatQuattroKey(sourceDbCode, quattroBookingPrefix, "")
+	for _, externalID := range externalIDs {
+		if !strings.HasPrefix(externalID, prefix) {
+			// skip this iteration
+			continue
+		}
+
+		externalIDParts := strings.Split(externalID, ":")
+		intID, err := strconv.Atoi(externalIDParts[len(externalIDParts)-1])
+		if err != nil {
+			continue
+		}
+
+		return &intID
+	}
+	return nil
+}
+
 func GetLegacySiteCode(externalIDs []string) *int {
 	return getLegacyIOEntityNumericID(externalIDs, "site")
 }
