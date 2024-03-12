@@ -125,18 +125,14 @@ func getLegacyIOEntityNumericID(externalIDs []string, entity string) *int {
 
 func parseExternalID(prefix string, externalIDs []string) *int {
 	for _, externalID := range externalIDs {
-		if !strings.HasPrefix(externalID, prefix) {
-			// skip this iteration
-			continue
+		if strings.HasPrefix(externalID, prefix) {
+			identifier := strings.TrimPrefix(externalID, prefix)
+			intID, err := strconv.Atoi(identifier)
+			if err != nil {
+				return nil
+			}
+			return &intID
 		}
-
-		externalIDParts := strings.Split(externalID, ":")
-		intID, err := strconv.Atoi(externalIDParts[len(externalIDParts)-1])
-		if err != nil {
-			continue
-		}
-
-		return &intID
 	}
 	return nil
 }
