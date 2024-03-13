@@ -105,6 +105,10 @@ func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
 }
 
+func GetOrderNumber(externalIDs []string) *int {
+	return parseExternalID(ioOrderNumberPrefix, externalIDs)
+}
+
 func GetEmployeeNumber(externalIDs []string) *int {
 	return parseExternalID(ioEmployeeeNumberPrefix, externalIDs)
 }
