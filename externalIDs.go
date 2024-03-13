@@ -13,7 +13,7 @@ const (
 	ioAccountIdPrefix          = "io:account:"
 	ioBookingIDPrefix          = "io:booking:"
 	ioCustomerPrefix           = "io:customer:"
-	ioEmployeeeNumberPrefix    = "io:employee:"
+	ioEmployeeeNumberPrefix    = "io:employeeNumber:"
 	ioMarketPrefix             = "io:market:"
 	ioOrderIDPrefix            = "io:order:"
 	ioOrderNumberPrefix        = "io:orderNumber:"
@@ -103,6 +103,10 @@ func FormatQuattroDigitalBookingID(sourceDbCode string, bookingID interface{}) s
 
 func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
+}
+
+func GetEmployeeNumber(externalIDs []string) *int {
+	return parseExternalID(ioEmployeeeNumberPrefix, externalIDs)
 }
 
 func GetQuattroBookingID(sourceDbCode string, externalIDs []string) *int {

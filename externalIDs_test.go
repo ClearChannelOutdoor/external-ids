@@ -120,3 +120,11 @@ func Test_GetQuattroBookingID_NoBookingID(t *testing.T) {
 		t.Errorf("expected nil got %d", *id)
 	}
 }
+
+func Test_GetEmployeeNumber(t *testing.T) {
+	extIds := []string{"io:employeeNumber:1234", "io:booking:2600", "io:display:5678"}
+	id := GetEmployeeNumber(extIds)
+	if *id != 1234 {
+		t.Errorf("expected 1234 got %d", *id)
+	}
+}
