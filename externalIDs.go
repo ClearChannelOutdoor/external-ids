@@ -105,6 +105,10 @@ func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
 }
 
+func GetEmployeeNumber(externalIDs []string) *int {
+	return parseExternalID(ioEmployeeeNumberPrefix, externalIDs)
+}
+
 func GetQuattroBookingID(sourceDbCode string, externalIDs []string) *int {
 	prefix := formatQuattroKey(sourceDbCode, quattroBookingPrefix, "")
 	return parseExternalID(prefix, externalIDs)
