@@ -13,7 +13,7 @@ const (
 	ioAccountIdPrefix          = "io:account:"
 	ioBookingIDPrefix          = "io:booking:"
 	ioCustomerPrefix           = "io:customer:"
-	ioEmployeeeNumberPrefix    = "io:employee:"
+	ioEmployeeeNumberPrefix    = "io:employeeNumber:"
 	ioMarketPrefix             = "io:market:"
 	ioOrderIDPrefix            = "io:order:"
 	ioOrderNumberPrefix        = "io:orderNumber:"
