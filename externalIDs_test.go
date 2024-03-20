@@ -42,6 +42,16 @@ func Test_FormatQuattroDisplayID(t *testing.T) {
 	}
 }
 
+func Test_FormatQuattroNetworkID(t *testing.T) {
+	mar := "CHI"
+	id := "1234"
+
+	extId := FormatQuattroNetworkID(mar, id)
+	if extId != "quattro_CHI:network:1234" {
+		t.Errorf("bad quattro display format; expected: %s; got: %s", "quattro_CHI:display:1234", extId)
+	}
+}
+
 func Test_FormatQuattroBookingID(t *testing.T) {
 	mar := "CHI"
 	id := "1234"
