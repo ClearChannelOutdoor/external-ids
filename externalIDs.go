@@ -28,6 +28,7 @@ const (
 	quattroBookingPrefix         = ":booking:"
 	quattroDigitalBookingPrefix  = ":digitalBooking:"
 	quattroDisplayID             = ":display:"
+	quattroNetworkID             = ":network:"
 )
 
 func FormatIOAccount(id interface{}) string {
@@ -103,6 +104,10 @@ func FormatQuattroDigitalBookingID(sourceDbCode string, bookingID interface{}) s
 
 func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
+}
+
+func FormatQuattroNetworkID(sourceDbCode string, digitalProductID interface{}) string {
+	return formatQuattroKey(sourceDbCode, quattroNetworkID, fmt.Sprint(digitalProductID))
 }
 
 func GetOrderNumber(externalIDs []string) *int {
