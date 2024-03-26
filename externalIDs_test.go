@@ -136,3 +136,11 @@ func Test_GetOrderNumber(t *testing.T) {
 		t.Errorf("expected 1234 got %d", *id)
 	}
 }
+
+func Test_GetQuattroCampaignID(t *testing.T) {
+	extIds := []string{"quattro_CHI:campaign:1234", "io:booking:2600", "io:display:5678"}
+	id := GetQuattroCampaignID("CHI", extIds)
+	if *id != 1234 {
+		t.Errorf("expected nil got %d", *id)
+	}
+}
