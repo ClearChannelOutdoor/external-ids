@@ -123,6 +123,11 @@ func GetQuattroBookingID(sourceDbCode string, externalIDs []string) *int {
 	return parseExternalID(prefix, externalIDs)
 }
 
+func GetQuattroCampaignID(marketCode string, externalIDs []string) *int {
+	prefix := formatQuattroKey(marketCode, quattroCampaignPrefix, "")
+	return parseExternalID(prefix, externalIDs)
+}
+
 func GetLegacySiteCode(externalIDs []string) *int {
 	return getLegacyIOEntityNumericID(externalIDs, "site")
 }
