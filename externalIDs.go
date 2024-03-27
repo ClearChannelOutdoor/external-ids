@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	extAgencyCodePrefi         = "agency:code:"
+	extAgencyCodePrefix        = "agency:code:"
 	geopathSegmentCodePrefix   = "geopath:segmentCode:"
 	geopathTargetProfilePrefix = "geopath:targetProfile:"
 	ioAccountIdPrefix          = "io:account:"
@@ -40,7 +40,7 @@ func FormatIOCustomer(id interface{}) string {
 }
 
 func FormatExtAgencyCode(code interface{}) string {
-	return format(extAgencyCodePrefi, fmt.Sprint(code))
+	return format(extAgencyCodePrefix, fmt.Sprint(code))
 }
 func FormatGeopathSegmentCode(code interface{}) string {
 	return format(geopathSegmentCodePrefix, fmt.Sprint(code))
@@ -108,6 +108,10 @@ func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 
 func FormatQuattroNetworkID(sourceDbCode string, digitalProductID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroNetworkID, fmt.Sprint(digitalProductID))
+}
+
+func GetExtAgencyCode(externalIDs []string) *int {
+	return parseExternalID(extAgencyCodePrefix, externalIDs)
 }
 
 func GetOrderNumber(externalIDs []string) *int {
