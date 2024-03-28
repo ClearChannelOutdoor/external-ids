@@ -75,16 +75,16 @@ func Test_FormatQuattroDigitalBookingID(t *testing.T) {
 func Test_GetIOLegacyDisplayID(t *testing.T) {
 	extId := []string{"io:display:1234"}
 	id := GetLegacyIODisplayID(extId)
-	if *id != 1234 {
-		t.Errorf("bad io display id format; expected: %d; got: %d", 1234, *id)
+	if id != "1234" {
+		t.Errorf("bad io display id format; expected: %d; got: %s", 1234, id)
 	}
 }
 
 func Test_GetIOLegacyDisplayID_NotRequestedEntity(t *testing.T) {
 	extId := []string{"io:campaign:1234"}
 	id := GetLegacyIODisplayID(extId)
-	if id != nil {
-		t.Errorf("expected nil got %d", &id)
+	if id != "" {
+		t.Errorf("expected nil got %s", id)
 	}
 }
 
@@ -92,17 +92,8 @@ func Test_GetIOLegacyDisplayID_NotRequestedEntity(t *testing.T) {
 func Test_GetIOLegacyDisplayID_MultipleIDs(t *testing.T) {
 	extIds := []string{"io:market:1234", "io:display:1234", "io:display:5678"}
 	id := GetLegacyIODisplayID(extIds)
-	if *id != 1234 {
-		t.Errorf("expected %d got %d", 1234, *id)
-	}
-}
-
-// test non-numeric id string
-func Test_GetIOLegacyDisplayID_NonNumericID(t *testing.T) {
-	extIds := []string{"io:display:abc"}
-	id := GetLegacyIODisplayID(extIds)
-	if id != nil {
-		t.Errorf("expected nil got %d", id)
+	if id != "1234" {
+		t.Errorf("expected %d got %s", 1234, id)
 	}
 }
 
@@ -110,55 +101,55 @@ func Test_GetIOLegacyDisplayID_NonNumericID(t *testing.T) {
 func Test_GetLegacySiteCode(t *testing.T) {
 	extId := []string{"io:site:1234"}
 	id := GetLegacySiteCode(extId)
-	if *id != 1234 {
-		t.Errorf("bad site_code format; expected: %d; got: %d", 1234, *id)
+	if id != "1234" {
+		t.Errorf("bad site_code format; expected: %d; got: %s", 1234, id)
 	}
 }
 
 func Test_GetQuattroBookingID(t *testing.T) {
 	extIds := []string{"io:market:1234", "quattro_CHI:booking:2600", "io:display:5678"}
 	id := GetQuattroBookingID("CHI", extIds)
-	if *id != 2600 {
-		t.Errorf("expected %d got %d", 2600, *id)
+	if id != "2600" {
+		t.Errorf("expected %d got %s", 2600, id)
 	}
 }
 
 func Test_GetQuattroBookingID_NoBookingID(t *testing.T) {
 	extIds := []string{"io:market:1234", "io:booking:2600", "io:display:5678"}
 	id := GetQuattroBookingID("CHI", extIds)
-	if id != nil {
-		t.Errorf("expected nil got %d", *id)
+	if id != "" {
+		t.Errorf("expected nil got %s", id)
 	}
 }
 
 func Test_GetEmployeeNumber(t *testing.T) {
 	extIds := []string{"io:employeeNumber:1234", "io:booking:2600", "io:display:5678"}
 	id := GetEmployeeNumber(extIds)
-	if *id != 1234 {
-		t.Errorf("expected 1234 got %d", *id)
+	if id != "1234" {
+		t.Errorf("expected 1234 got %s", id)
 	}
 }
 
 func Test_GetOrderNumber(t *testing.T) {
 	extIds := []string{"io:orderNumber:1234", "io:booking:2600", "io:display:5678"}
 	id := GetOrderNumber(extIds)
-	if *id != 1234 {
-		t.Errorf("expected 1234 got %d", *id)
+	if id != "1234" {
+		t.Errorf("expected 1234 got %s", id)
 	}
 }
 
 func Test_GetQuattroCampaignID(t *testing.T) {
 	extIds := []string{"quattro_CHI:campaign:1234", "io:booking:2600", "io:display:5678"}
 	id := GetQuattroCampaignID("CHI", extIds)
-	if *id != 1234 {
-		t.Errorf("expected 1234 got %d", *id)
+	if id != "1234" {
+		t.Errorf("expected 1234 got %s", id)
 	}
 }
 
 func Test_GetExtAgencyCode(t *testing.T) {
 	extIds := []string{"agency:code:1234", "io:booking:2600", "io:display:5678"}
 	id := GetExtAgencyCode(extIds)
-	if *id != 1234 {
-		t.Errorf("expected 1234 got %d", *id)
+	if id != "1234" {
+		t.Errorf("expected 1234 got %s", id)
 	}
 }

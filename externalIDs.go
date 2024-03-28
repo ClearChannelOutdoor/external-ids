@@ -2,7 +2,6 @@ package externalIDs
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 )
 
@@ -110,53 +109,48 @@ func FormatQuattroNetworkID(sourceDbCode string, digitalProductID interface{}) s
 	return formatQuattroKey(sourceDbCode, quattroNetworkID, fmt.Sprint(digitalProductID))
 }
 
-func GetExtAgencyCode(externalIDs []string) *int {
+func GetExtAgencyCode(externalIDs []string) string {
 	return parseExternalID(extAgencyCodePrefix, externalIDs)
 }
 
-func GetOrderNumber(externalIDs []string) *int {
+func GetOrderNumber(externalIDs []string) string {
 	return parseExternalID(ioOrderNumberPrefix, externalIDs)
 }
 
-func GetEmployeeNumber(externalIDs []string) *int {
+func GetEmployeeNumber(externalIDs []string) string {
 	return parseExternalID(ioEmployeeeNumberPrefix, externalIDs)
 }
 
-func GetQuattroBookingID(sourceDbCode string, externalIDs []string) *int {
+func GetQuattroBookingID(sourceDbCode string, externalIDs []string) string {
 	prefix := formatQuattroKey(sourceDbCode, quattroBookingPrefix, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
-func GetQuattroCampaignID(marketCode string, externalIDs []string) *int {
+func GetQuattroCampaignID(marketCode string, externalIDs []string) string {
 	prefix := formatQuattroKey(marketCode, quattroCampaignPrefix, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
-func GetLegacySiteCode(externalIDs []string) *int {
+func GetLegacySiteCode(externalIDs []string) string {
 	return getLegacyIOEntityNumericID(externalIDs, "site")
 }
 
-func GetLegacyIODisplayID(externalIDs []string) *int {
+func GetLegacyIODisplayID(externalIDs []string) string {
 	return getLegacyIOEntityNumericID(externalIDs, "display")
 }
 
-func getLegacyIOEntityNumericID(externalIDs []string, entity string) *int {
+func getLegacyIOEntityNumericID(externalIDs []string, entity string) string {
 	prefix := fmt.Sprintf("io:%s:", entity)
 	return parseExternalID(prefix, externalIDs)
 }
 
-func parseExternalID(prefix string, externalIDs []string) *int {
+func parseExternalID(prefix string, externalIDs []string) string {
 	for _, externalID := range externalIDs {
 		if strings.HasPrefix(externalID, prefix) {
-			identifier := strings.TrimPrefix(externalID, prefix)
-			intID, err := strconv.Atoi(identifier)
-			if err != nil {
-				return nil
-			}
-			return &intID
+			return strings.TrimPrefix(externalID, prefix)
 		}
 	}
-	return nil
+	return ""
 }
 
 func formatQuattroKey(marketCode string, entity string, id string) string {
