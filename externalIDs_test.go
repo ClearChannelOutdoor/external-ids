@@ -146,9 +146,9 @@ func Test_GetQuattroCampaignID(t *testing.T) {
 	}
 }
 
-func Test_GetCustomerCode(t *testing.T) {
-	extIds := []string{"customer:code:1234", "io:booking:2600", "io:display:5678"}
-	id := GetCustomerCode(extIds)
+func Test_GetCustomerOrder(t *testing.T) {
+	extIds := []string{"customer:order:1234", "io:booking:2600", "io:display:5678"}
+	id := GetCustomerOrder(extIds)
 	if id != "1234" {
 		t.Errorf("expected 1234 got %s", id)
 	}
