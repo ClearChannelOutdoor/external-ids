@@ -146,6 +146,14 @@ func Test_GetQuattroCampaignID(t *testing.T) {
 	}
 }
 
+func Test_GetQuattroCampaignSegmentID(t *testing.T) {
+	extIds := []string{"quattro_CHI:campaignSegment:1234", "io:booking:2600", "io:display:5678"}
+	id := GetQuattroCampaignSegmentID("CHI", extIds)
+	if id != "1234" {
+		t.Errorf("expected 1234 got %s", id)
+	}
+}
+
 func Test_GetCustomerOrder(t *testing.T) {
 	extIds := []string{"customer:order:1234", "io:booking:2600", "io:display:5678"}
 	id := GetCustomerOrder(extIds)
