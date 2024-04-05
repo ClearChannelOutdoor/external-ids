@@ -136,6 +136,11 @@ func GetQuattroCampaignSegmentID(marketCode string, externalIDs []string) string
 	return parseExternalID(prefix, externalIDs)
 }
 
+func GetQuattroDisplayID(marketCode string, externalIDs []string) string {
+	prefix := formatQuattroKey(marketCode, quattroDisplayID, "")
+	return parseExternalID(prefix, externalIDs)
+}
+
 func GetLegacySiteCode(externalIDs []string) string {
 	return getLegacyIOEntityNumericID(externalIDs, "site")
 }
