@@ -161,3 +161,11 @@ func Test_GetCustomerOrder(t *testing.T) {
 		t.Errorf("expected 1234 got %s", id)
 	}
 }
+
+func Test_FormatExternalAgencyReferenceNumber(t *testing.T) {
+	testCode := "1234"
+	id := FormatExternalAgencyReferenceNumber(testCode)
+	if id != "agency:code:1234" {
+		t.Errorf("expected agency:code:1234 got %s", id)
+	}
+}

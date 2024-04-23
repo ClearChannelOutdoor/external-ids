@@ -6,19 +6,20 @@ import (
 )
 
 const (
-	extCustomerOrderPrefix     = "customer:order:"
-	geopathSegmentCodePrefix   = "geopath:segmentCode:"
-	geopathTargetProfilePrefix = "geopath:targetProfile:"
-	ioAccountIdPrefix          = "io:account:"
-	ioBookingIDPrefix          = "io:booking:"
-	ioCustomerPrefix           = "io:customer:"
-	ioEmployeeeNumberPrefix    = "io:employeeNumber:"
-	ioMarketPrefix             = "io:market:"
-	ioOrderIDPrefix            = "io:order:"
-	ioOrderNumberPrefix        = "io:orderNumber:"
-	ioOrderLinePrefix          = "io:orderLine:"
-	ioOrderLineTypePrefix      = "io:orderLineType:"
-	ioOrderMarketIDPrefix      = "io:orderMarket:"
+	extAgencyReferenceNumberPrefix = "agency:code:"
+	extCustomerOrderPrefix         = "customer:order:"
+	geopathSegmentCodePrefix       = "geopath:segmentCode:"
+	geopathTargetProfilePrefix     = "geopath:targetProfile:"
+	ioAccountIdPrefix              = "io:account:"
+	ioBookingIDPrefix              = "io:booking:"
+	ioCustomerPrefix               = "io:customer:"
+	ioEmployeeeNumberPrefix        = "io:employeeNumber:"
+	ioMarketPrefix                 = "io:market:"
+	ioOrderIDPrefix                = "io:order:"
+	ioOrderNumberPrefix            = "io:orderNumber:"
+	ioOrderLinePrefix              = "io:orderLine:"
+	ioOrderLineTypePrefix          = "io:orderLineType:"
+	ioOrderMarketIDPrefix          = "io:orderMarket:"
 
 	quattroDbPrefix              = "quattro_"
 	quattroCampaignPrefix        = ":campaign:"
@@ -41,6 +42,11 @@ func FormatIOCustomer(id interface{}) string {
 func FormatCustomerOrder(code interface{}) string {
 	return format(extCustomerOrderPrefix, fmt.Sprint(code))
 }
+
+func FormatExternalAgencyReferenceNumber(code interface{}) string {
+	return format(extAgencyReferenceNumberPrefix, fmt.Sprint(code))
+}
+
 func FormatGeopathSegmentCode(code interface{}) string {
 	return format(geopathSegmentCodePrefix, fmt.Sprint(code))
 }
