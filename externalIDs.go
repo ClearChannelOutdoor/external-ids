@@ -121,9 +121,12 @@ func GetEmployeeNumber(externalIDs []string) string {
 	return parseExternalID(ioEmployeeeNumberPrefix, externalIDs)
 }
 
-func GetQuattroBookingID(sourceDbCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(sourceDbCode, quattroBookingPrefix, "")
-	return parseExternalID(prefix, externalIDs)
+func GetQuattroBookingID(externalIDs []string) string {
+	return parseExternalIDByDescriptor(quattroBookingPrefix, externalIDs)
+}
+
+func GetQuattroDigitalBookingID(externalIDs []string) string {
+	return parseExternalIDByDescriptor(quattroDigitalBookingPrefix, externalIDs)
 }
 
 func GetQuattroCampaignID(marketCode string, externalIDs []string) string {
@@ -131,9 +134,8 @@ func GetQuattroCampaignID(marketCode string, externalIDs []string) string {
 	return parseExternalID(prefix, externalIDs)
 }
 
-func GetQuattroCampaignSegmentID(marketCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(marketCode, quattroCampaignSegmentPrefix, "")
-	return parseExternalID(prefix, externalIDs)
+func GetQuattroCampaignSegmentID(externalIDs []string) string {
+	return parseExternalIDByDescriptor(quattroCampaignSegmentPrefix, externalIDs)
 }
 
 func GetLegacySiteCode(externalIDs []string) string {
@@ -153,6 +155,15 @@ func parseExternalID(prefix string, externalIDs []string) string {
 	for _, externalID := range externalIDs {
 		if strings.HasPrefix(externalID, prefix) {
 			return strings.TrimPrefix(externalID, prefix)
+		}
+	}
+	return ""
+}
+
+func parseExternalIDByDescriptor(descriptor string, externalIDs []string) string {
+	for _, externalID := range externalIDs {
+		if strings.HasPrefix(externalID, quattroDbPrefix) && strings.Contains(externalID, descriptor) {
+			return strings.Split(externalID, descriptor)[1]
 		}
 	}
 	return ""
