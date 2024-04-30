@@ -28,6 +28,7 @@ const (
 	quattroDigitalBookingPrefix  = ":digitalBooking:"
 	quattroDisplayID             = ":display:"
 	quattroNetworkID             = ":network:"
+	quattroOrderMarketPrefix     = ":orderMarket:"
 )
 
 func FormatIOAccount(id interface{}) string {
@@ -134,6 +135,10 @@ func GetQuattroCampaignID(marketCode string, externalIDs []string) string {
 func GetQuattroCampaignSegmentID(marketCode string, externalIDs []string) string {
 	prefix := formatQuattroKey(marketCode, quattroCampaignSegmentPrefix, "")
 	return parseExternalID(prefix, externalIDs)
+}
+
+func FormatQuattroOrderMarketID(marketCode string, orderMarketID string) string {
+	return formatQuattroKey(marketCode, quattroOrderMarketPrefix, fmt.Sprintf(orderMarketID))
 }
 
 func GetLegacySiteCode(externalIDs []string) string {

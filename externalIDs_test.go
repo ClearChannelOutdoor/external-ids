@@ -161,3 +161,12 @@ func Test_GetCustomerOrder(t *testing.T) {
 		t.Errorf("expected 1234 got %s", id)
 	}
 }
+
+func Test_FormatQuattroOrderMarketID(t *testing.T) {
+	marketCode := "CHI"
+	orderMarketID := "1234"
+	id := FormatQuattroOrderMarketID(marketCode, orderMarketID)
+	if id != "quattro_CHI:orderMarket:1234" {
+		t.Errorf("expected %s got %s", "quattro_CHI:orderMarket:1234", id)
+	}
+}
