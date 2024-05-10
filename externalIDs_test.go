@@ -124,13 +124,8 @@ func Test_GetLegacySiteCode(t *testing.T) {
 }
 
 func Test_GetQuattroBookingID(t *testing.T) {
-<<<<<<< Updated upstream
-	extIds := []string{"io:market:1234", "quattro_CHI:booking:2600", "io:display:5678"}
-	id := GetQuattroBookingID("CHI", extIds)
-=======
 	extIds := []string{"io:market:1234", "quattro_chicago:booking:2600", "io:display:5678"}
-	id := GetQuattroBookingID(extIds)
->>>>>>> Stashed changes
+	id := GetQuattroBookingID("quattro_chicago", extIds)
 	if id != "2600" {
 		t.Errorf("expected %d got %s", 2600, id)
 	}
@@ -138,27 +133,7 @@ func Test_GetQuattroBookingID(t *testing.T) {
 
 func Test_GetQuattroBookingID_NoBookingID(t *testing.T) {
 	extIds := []string{"io:market:1234", "io:booking:2600", "io:display:5678"}
-<<<<<<< Updated upstream
-	id := GetQuattroBookingID("CHI", extIds)
-=======
-	id := GetQuattroBookingID(extIds)
-	if id != "" {
-		t.Errorf("expected nil got %s", id)
-	}
-}
-
-func Test_GetQuattroDigitalBookingID(t *testing.T) {
-	extIds := []string{"io:market:1234", "quattro_chicago:digitalBooking:2600", "io:display:5678"}
-	id := GetQuattroDigitalBookingID(extIds)
-	if id != "2600" {
-		t.Errorf("expected %d got %s", 2600, id)
-	}
-}
-
-func Test_GetQuattroDigitalBookingID_NoBookingID(t *testing.T) {
-	extIds := []string{"io:market:1234", "quattro_chicago:booking:2600", "io:display:5678"}
-	id := GetQuattroDigitalBookingID(extIds)
->>>>>>> Stashed changes
+	id := GetQuattroBookingID("quattro_chicago", extIds)
 	if id != "" {
 		t.Errorf("expected nil got %s", id)
 	}
@@ -189,13 +164,8 @@ func Test_GetQuattroCampaignID(t *testing.T) {
 }
 
 func Test_GetQuattroCampaignSegmentID(t *testing.T) {
-<<<<<<< Updated upstream
-	extIds := []string{"quattro_CHI:campaignSegment:1234", "io:booking:2600", "io:display:5678"}
-	id := GetQuattroCampaignSegmentID("CHI", extIds)
-=======
 	extIds := []string{"quattro_chicago:campaignSegment:1234", "io:booking:2600", "io:display:5678"}
-	id := GetQuattroCampaignSegmentID(extIds)
->>>>>>> Stashed changes
+	id := GetQuattroCampaignSegmentID("quattro_chicago", extIds)
 	if id != "1234" {
 		t.Errorf("expected 1234 got %s", id)
 	}
