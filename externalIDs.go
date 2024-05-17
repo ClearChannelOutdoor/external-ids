@@ -6,21 +6,21 @@ import (
 )
 
 const (
-	extCustomerOrderPrefix     = "customer:order:"
-	geopathSegmentCodePrefix   = "geopath:segmentCode:"
-	geopathTargetProfilePrefix = "geopath:targetProfile:"
-	ioAccountIdPrefix          = "io:account:"
-	ioBookingIDPrefix          = "io:booking:"
-	ioCustomerPrefix           = "io:customer:"
-	ioEmployeePrefix           = "io:employee:"
-	ioEmployeeNumberPrefix     = "io:employeeNumber:"
-	ioMarketPrefix             = "io:market:"
-	ioOrderIDPrefix            = "io:order:"
-	ioOrderNumberPrefix        = "io:orderNumber:"
-	ioOrderLinePrefix          = "io:orderLine:"
-	ioOrderLineTypePrefix      = "io:orderLineType:"
-	ioOrderMarketIDPrefix      = "io:orderMarket:"
-
+	extCustomerOrderPrefix       = "customer:order:"
+	geopathSegmentCodePrefix     = "geopath:segmentCode:"
+	geopathTargetProfilePrefix   = "geopath:targetProfile:"
+	ioAccountIdPrefix            = "io:account:"
+	ioBookingIDPrefix            = "io:booking:"
+	ioCustomerPrefix             = "io:customer:"
+	ioEmployeePrefix             = "io:employee:"
+	ioEmployeeNumberPrefix       = "io:employeeNumber:"
+	ioMarketPrefix               = "io:market:"
+	ioOrderIDPrefix              = "io:order:"
+	ioOrderNumberPrefix          = "io:orderNumber:"
+	ioOrderLinePrefix            = "io:orderLine:"
+	ioOrderLineTypePrefix        = "io:lineType:"
+	ioOrderMarketIDPrefix        = "io:orderMarket:"
+	ioProductMapIDPrefix         = "io:productMap:"
 	quattroDbPrefix              = "quattro_"
 	quattroCampaignPrefix        = ":campaign:"
 	quattroCampaignSegmentPrefix = ":campaignSegment:"
@@ -68,6 +68,10 @@ func FormatIOOrderLineType(id interface{}) string {
 
 func FormatIOOrderMarket(id interface{}) string {
 	return format(ioOrderMarketIDPrefix, fmt.Sprint(id))
+}
+
+func FormatIOProductMap(id interface{}) string {
+	return format(ioProductMapIDPrefix, fmt.Sprint(id))
 }
 
 func FormatIOBookingID(bookingID interface{}) string {
@@ -132,6 +136,11 @@ func GetEmployeeNumber(externalIDs []string) string {
 
 func GetQuattroBookingID(sourceDbCode string, externalIDs []string) string {
 	prefix := formatQuattroKey(sourceDbCode, quattroBookingPrefix, "")
+	return parseExternalID(prefix, externalIDs)
+}
+
+func GetQuattroDigitalBookingID(sourceDbCode string, externalIDs []string) string {
+	prefix := formatQuattroKey(sourceDbCode, quattroDigitalBookingPrefix, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
