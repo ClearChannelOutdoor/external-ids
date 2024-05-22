@@ -114,6 +114,14 @@ func Test_GetIOEmployeeID(t *testing.T) {
 	}
 }
 
+func Test_GetLegacyMarketID(t *testing.T) {
+	extIds := []string{"io:market:1234", "io:display:1234555", "io:employee:56786666"}
+	id := GetLegacyMarketID(extIds)
+	if id != "1234" {
+		t.Errorf("expected %d got %s", 1234, id)
+	}
+}
+
 // test getting site code
 func Test_GetLegacySiteCode(t *testing.T) {
 	extId := []string{"io:site:1234"}

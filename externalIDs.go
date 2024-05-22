@@ -118,6 +118,10 @@ func GetCustomerOrder(externalIDs []string) string {
 	return parseExternalID(extCustomerOrderPrefix, externalIDs)
 }
 
+func GetLegacyMarketID(externalIDs []string) string {
+	return parseExternalID(ioMarketPrefix, externalIDs)
+}
+
 func GetOrderNumber(externalIDs []string) string {
 	return parseExternalID(ioOrderNumberPrefix, externalIDs)
 }
