@@ -226,12 +226,6 @@ func Test_IOGetters(t *testing.T) {
 
 	runs := []testRun{
 		{
-			name:           "customer order",
-			externalIDs:    []string{"customer:order:1234"},
-			fn:             GetCustomerOrder,
-			expectedResult: "1234",
-		},
-		{
 			name:           "account",
 			externalIDs:    []string{"io:account:1234"},
 			fn:             GetIOAccountID,
@@ -349,11 +343,25 @@ func Test_QuattroGetters(t *testing.T) {
 			expectedResult: "1234",
 		},
 		{
+			name:           "booking, wrong market",
+			quattroDb:      "quattro_el_paso",
+			externalIDs:    []string{"quattro_chicago:booking:1234"},
+			fn:             GetQuattroBookingID,
+			expectedResult: "",
+		},
+		{
 			name:           "campaign",
 			quattroDb:      "chicago",
 			externalIDs:    []string{"quattro_chicago:campaign:1234"},
 			fn:             GetQuattroCampaignID,
 			expectedResult: "1234",
+		},
+		{
+			name:           "campaign, wrong market",
+			quattroDb:      "el_paso",
+			externalIDs:    []string{"quattro_chicago:campaign:1234"},
+			fn:             GetQuattroCampaignID,
+			expectedResult: "",
 		},
 		{
 			name:           "campaign segment",
@@ -363,11 +371,25 @@ func Test_QuattroGetters(t *testing.T) {
 			expectedResult: "1234",
 		},
 		{
+			name:           "campaign segment, wrong market",
+			quattroDb:      "chicago",
+			externalIDs:    []string{"el_paso:campaignSegment:1234"},
+			fn:             GetQuattroCampaignSegmentID,
+			expectedResult: "",
+		},
+		{
 			name:           "digital booking",
 			quattroDb:      "chicago",
 			externalIDs:    []string{"quattro_chicago:digitalBooking:1234"},
 			fn:             GetQuattroDigitalBookingID,
 			expectedResult: "1234",
+		},
+		{
+			name:           "digital booking, wrong market",
+			quattroDb:      "chicago",
+			externalIDs:    []string{"el_paso:digitalBooking:1234"},
+			fn:             GetQuattroDigitalBookingID,
+			expectedResult: "",
 		},
 		{
 			name:           "display",
@@ -377,11 +399,25 @@ func Test_QuattroGetters(t *testing.T) {
 			expectedResult: "1234",
 		},
 		{
+			name:           "display, wrong market",
+			quattroDb:      "chicago",
+			externalIDs:    []string{"el_paso:display:1234"},
+			fn:             GetQuattroDisplayID,
+			expectedResult: "",
+		},
+		{
 			name:           "network",
 			quattroDb:      "chicago",
 			externalIDs:    []string{"quattro_chicago:network:1234"},
 			fn:             GetQuattroNetworkID,
 			expectedResult: "1234",
+		},
+		{
+			name:           "network, wrong market",
+			quattroDb:      "el_paso",
+			externalIDs:    []string{"quattro_chicago:network:1234"},
+			fn:             GetQuattroNetworkID,
+			expectedResult: "",
 		},
 	}
 
