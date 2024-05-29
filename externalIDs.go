@@ -12,24 +12,30 @@ const (
 	ioAccountIdPrefix            = "io:account:"
 	ioBookingIDPrefix            = "io:booking:"
 	ioCustomerPrefix             = "io:customer:"
+	ioDisplayPrefix              = "io:display:"
 	ioEmployeePrefix             = "io:employee:"
 	ioEmployeeNumberPrefix       = "io:employeeNumber:"
-	ioMarketPrefix               = "io:market:"
-	ioOrderIDPrefix              = "io:order:"
-	ioOrderNumberPrefix          = "io:orderNumber:"
-	ioOrderLinePrefix            = "io:orderLine:"
+	ioGroupBookingPrefix         = "io:groupBooking:"
 	ioOrderLineTypePrefix        = "io:lineType:"
+	ioMarketPrefix               = "io:market:"
+	ioNetworkPrefix              = "io:network:"
+	ioOrderIDPrefix              = "io:order:"
+	ioOrderLinePrefix            = "io:orderLine:"
 	ioOrderMarketIDPrefix        = "io:orderMarket:"
+	ioOrderNumberPrefix          = "io:orderNumber:"
 	ioProductMapIDPrefix         = "io:productMap:"
 	quattroDbPrefix              = "quattro_"
-	quattroCampaignPrefix        = ":campaign:"
-	quattroCampaignSegmentPrefix = ":campaignSegment:"
-	quattroCampaignDetailPrefix  = ":campaignDetail:"
 	quattroBookingPrefix         = ":booking:"
+	quattroCampaignPrefix        = ":campaign:"
+	quattroCampaignDetailPrefix  = ":campaignDetail:"
+	quattroCampaignSegmentPrefix = ":campaignSegment:"
 	quattroDigitalBookingPrefix  = ":digitalBooking:"
 	quattroDisplayID             = ":display:"
 	quattroNetworkID             = ":network:"
+	spotChartSegmentPrefix       = "spotchart:segment:"
 )
+
+/* FORMATTERS */
 
 func FormatIOAccount(id interface{}) string {
 	return format(ioAccountIdPrefix, fmt.Sprint(id))
@@ -42,6 +48,11 @@ func FormatIOCustomer(id interface{}) string {
 func FormatCustomerOrder(code interface{}) string {
 	return format(extCustomerOrderPrefix, fmt.Sprint(code))
 }
+
+func FormatSpotChartSegmentID(segmentID interface{}) string {
+	return format(spotChartSegmentPrefix, fmt.Sprint(segmentID))
+}
+
 func FormatGeopathSegmentCode(code interface{}) string {
 	return format(geopathSegmentCodePrefix, fmt.Sprint(code))
 }
@@ -78,6 +89,10 @@ func FormatIOBookingID(bookingID interface{}) string {
 	return format(ioBookingIDPrefix, fmt.Sprint(bookingID))
 }
 
+func FormatIODisplayID(number interface{}) string {
+	return format(ioDisplayPrefix, fmt.Sprint(number))
+}
+
 func FormatIOEmployeeID(number interface{}) string {
 	return format(ioEmployeePrefix, fmt.Sprint(number))
 }
@@ -86,8 +101,16 @@ func FormatIOEmployeeNumber(number interface{}) string {
 	return format(ioEmployeeNumberPrefix, fmt.Sprint(number))
 }
 
+func FormatIOGroupBooking(number interface{}) string {
+	return format(ioGroupBookingPrefix, fmt.Sprint(number))
+}
+
 func FormatIOMarket(id interface{}) string {
 	return format(ioMarketPrefix, fmt.Sprint(id))
+}
+
+func FormatIONetworkID(number interface{}) string {
+	return format(ioNetworkPrefix, fmt.Sprint(number))
 }
 
 func FormatQuattroCampaign(marketCode string, campaignId interface{}) string {
@@ -118,24 +141,74 @@ func FormatQuattroNetworkID(sourceDbCode string, digitalProductID interface{}) s
 	return formatQuattroKey(sourceDbCode, quattroNetworkID, fmt.Sprint(digitalProductID))
 }
 
+/* GETTERS */
+
 func GetCustomerOrder(externalIDs []string) string {
 	return parseExternalID(extCustomerOrderPrefix, externalIDs)
+}
+
+func GetSpotChartSegment(externalIDs []string) string {
+	return parseExternalID(spotChartSegmentPrefix, externalIDs)
 }
 
 func GetLegacyMarketID(externalIDs []string) string {
 	return parseExternalID(ioMarketPrefix, externalIDs)
 }
 
+func GetIOOrderID(externalIDs []string) string {
+	return parseExternalID(ioOrderIDPrefix, externalIDs)
+}
+
+func GetIOOrderLineID(externalIDs []string) string {
+	return parseExternalID(ioOrderLinePrefix, externalIDs)
+}
+
+func GetIOOrderMarketID(externalIDs []string) string {
+	return parseExternalID(ioOrderMarketIDPrefix, externalIDs)
+}
+
 func GetOrderNumber(externalIDs []string) string {
 	return parseExternalID(ioOrderNumberPrefix, externalIDs)
 }
 
-func GetEmployeeID(externalIDs []string) string {
+func GetIOAccountID(externalIDs []string) string {
+	return parseExternalID(ioAccountIdPrefix, externalIDs)
+}
+
+func GetIOBookingID(externalIDs []string) string {
+	return parseExternalID(ioBookingIDPrefix, externalIDs)
+}
+
+func GetIOCustomerID(externalIDs []string) string {
+	return parseExternalID(ioCustomerPrefix, externalIDs)
+}
+
+func GetIODisplayID(externalIDs []string) string {
+	return parseExternalID(ioDisplayPrefix, externalIDs)
+}
+
+func GetIOGroupBookingID(externalIDs []string) string {
+	return parseExternalID(ioGroupBookingPrefix, externalIDs)
+}
+
+func GetIOEmployeeID(externalIDs []string) string {
 	return parseExternalID(ioEmployeePrefix, externalIDs)
 }
 
 func GetEmployeeNumber(externalIDs []string) string {
 	return parseExternalID(ioEmployeeNumberPrefix, externalIDs)
+}
+
+func GetIOOrderLineTypeID(externalIDs []string) string {
+	return parseExternalID(ioOrderLineTypePrefix, externalIDs)
+}
+
+func GetIONetworkID(externalIDs []string) string {
+	return parseExternalID(ioNetworkPrefix, externalIDs)
+}
+
+func GetIOProductMapID(externalIDs []string) string {
+	return parseExternalID(ioProductMapIDPrefix, externalIDs)
 }
 
 func GetQuattroBookingID(sourceDbCode string, externalIDs []string) string {
@@ -145,6 +218,16 @@ func GetQuattroBookingID(sourceDbCode string, externalIDs []string) string {
 
 func GetQuattroDigitalBookingID(sourceDbCode string, externalIDs []string) string {
 	prefix := formatQuattroKey(sourceDbCode, quattroDigitalBookingPrefix, "")
+	return parseExternalID(prefix, externalIDs)
+}
+
+func GetQuattroDisplayID(sourceDbCode string, externalIDs []string) string {
+	prefix := formatQuattroKey(sourceDbCode, quattroDisplayID, "")
+	return parseExternalID(prefix, externalIDs)
+}
+
+func GetQuattroNetworkID(sourceDbCode string, externalIDs []string) string {
+	prefix := formatQuattroKey(sourceDbCode, quattroNetworkID, "")
 	return parseExternalID(prefix, externalIDs)
 }
 

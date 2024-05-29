@@ -1,196 +1,426 @@
 package externalIDs
 
-import "testing"
+import (
+	"testing"
 
-func Test_FormatQuattroCampaign(t *testing.T) {
-	key := "quattro_chicago"
-	id := "1234"
+	"github.com/stretchr/testify/assert"
+)
 
-	extId := FormatQuattroCampaign(key, id)
-	if extId != "quattro_chicago:campaign:1234" {
-		t.Errorf("bad quattro campaign format; expected: %s; got: %s", "quattro_chicago:campaign:1234", extId)
+func Test_IOFormatters(t *testing.T) {
+	type testRun struct {
+		name           string
+		id             string
+		fn             func(interface{}) string
+		expectedResult string
+	}
+
+	runs := []testRun{
+		{
+			name:           "account",
+			id:             "1234",
+			fn:             FormatIOAccount,
+			expectedResult: "io:account:1234",
+		},
+		{
+			name:           "booking",
+			id:             "1234",
+			fn:             FormatIOBookingID,
+			expectedResult: "io:booking:1234",
+		},
+		{
+			name:           "customer",
+			id:             "1234",
+			fn:             FormatIOCustomer,
+			expectedResult: "io:customer:1234",
+		},
+		{
+			name:           "display",
+			id:             "1234",
+			fn:             FormatIODisplayID,
+			expectedResult: "io:display:1234",
+		},
+		{
+			name:           "employee",
+			id:             "1234",
+			fn:             FormatIOEmployeeID,
+			expectedResult: "io:employee:1234",
+		},
+		{
+			name:           "employee number",
+			id:             "1234",
+			fn:             FormatIOEmployeeNumber,
+			expectedResult: "io:employeeNumber:1234",
+		},
+		{
+			name:           "group booking",
+			id:             "1234",
+			fn:             FormatIOGroupBooking,
+			expectedResult: "io:groupBooking:1234",
+		},
+		{
+			name:           "order line type",
+			id:             "1234",
+			fn:             FormatIOOrderLineType,
+			expectedResult: "io:lineType:1234",
+		},
+		{
+			name:           "market",
+			id:             "1234",
+			fn:             FormatIOMarket,
+			expectedResult: "io:market:1234",
+		},
+		{
+			name:           "network",
+			id:             "1234",
+			fn:             FormatIONetworkID,
+			expectedResult: "io:network:1234",
+		},
+		{
+			name:           "order",
+			id:             "1234",
+			fn:             FormatIOOrderID,
+			expectedResult: "io:order:1234",
+		},
+		{
+			name:           "order line",
+			id:             "1234",
+			fn:             FormatIOOrderLine,
+			expectedResult: "io:orderLine:1234",
+		},
+		{
+			name:           "order market",
+			id:             "1234",
+			fn:             FormatIOOrderMarket,
+			expectedResult: "io:orderMarket:1234",
+		},
+		{
+			name:           "order number",
+			id:             "1234",
+			fn:             FormatIOOrderNumber,
+			expectedResult: "io:orderNumber:1234",
+		},
+		{
+			name:           "product map",
+			id:             "1234",
+			fn:             FormatIOProductMap,
+			expectedResult: "io:productMap:1234",
+		},
+	}
+
+	for _, test := range runs {
+		t.Run(test.name, func(t *testing.T) {
+			formattedId := test.fn(test.id)
+			assert.Equal(t, test.expectedResult, formattedId)
+		})
 	}
 }
 
-func Test_FormatQuattroCampaignSegment(t *testing.T) {
-	key := "quattro_chicago"
-	id := "1234"
+func Test_QuattroFormatters(t *testing.T) {
+	type testRun struct {
+		name           string
+		quattroDb      string
+		id             string
+		fn             func(string, interface{}) string
+		expectedResult string
+	}
 
-	segmentId := FormatQuattroCampaignSegment(key, id)
-	if segmentId != "quattro_chicago:campaignSegment:1234" {
-		t.Errorf("bad quattro campaignSegment format; expected: %s; got: %s", "quattro_chicago:campaignSegment:1234", segmentId)
+	runs := []testRun{
+		{
+			name:           "booking",
+			quattroDb:      "quattro_chicago",
+			id:             "1234",
+			fn:             FormatQuattroBookingID,
+			expectedResult: "quattro_chicago:booking:1234",
+		},
+		{
+			name:           "campaign",
+			quattroDb:      "chicago",
+			id:             "1234",
+			fn:             FormatQuattroCampaign,
+			expectedResult: "quattro_chicago:campaign:1234",
+		},
+		{
+			name:           "campaign detail",
+			quattroDb:      "chicago",
+			id:             "1234",
+			fn:             FormatQuattroCampaignDetail,
+			expectedResult: "quattro_chicago:campaignDetail:1234",
+		},
+		{
+			name:           "campaign segment",
+			quattroDb:      "chicago",
+			id:             "1234",
+			fn:             FormatQuattroCampaignSegment,
+			expectedResult: "quattro_chicago:campaignSegment:1234",
+		},
+		{
+			name:           "digital booking",
+			quattroDb:      "chicago",
+			id:             "1234",
+			fn:             FormatQuattroDigitalBookingID,
+			expectedResult: "quattro_chicago:digitalBooking:1234",
+		},
+		{
+			name:           "display",
+			quattroDb:      "chicago",
+			id:             "1234",
+			fn:             FormatQuattroDisplayID,
+			expectedResult: "quattro_chicago:display:1234",
+		},
+		{
+			name:           "network",
+			quattroDb:      "chicago",
+			id:             "1234",
+			fn:             FormatQuattroNetworkID,
+			expectedResult: "quattro_chicago:network:1234",
+		},
+	}
+
+	for _, test := range runs {
+		t.Run(test.name, func(t *testing.T) {
+			formattedId := test.fn(test.quattroDb, test.id)
+			assert.Equal(t, test.expectedResult, formattedId)
+		})
 	}
 }
 
-func Test_FormatQuattroCampaignDetail(t *testing.T) {
-	key := "quattro_chicago"
-	id := "1234"
+func Test_MiscFormatters(t *testing.T) {
+	type testRun struct {
+		name           string
+		id             string
+		fn             func(interface{}) string
+		expectedResult string
+	}
 
-	detailId := FormatQuattroCampaignDetail(key, id)
-	if detailId != "quattro_chicago:campaignDetail:1234" {
-		t.Errorf("bad quattro campaignSegment format; expected: %s; got: %s", "quattro_chicago:campaignDetail:1234", detailId)
+	runs := []testRun{
+		{
+			name:           "customer order",
+			id:             "1234",
+			fn:             FormatCustomerOrder,
+			expectedResult: "customer:order:1234",
+		},
+
+		{
+			name:           "spotchart segment",
+			id:             "1234",
+			fn:             FormatSpotChartSegmentID,
+			expectedResult: "spotchart:segment:1234",
+		},
+	}
+
+	for _, test := range runs {
+		t.Run(test.name, func(t *testing.T) {
+			formattedId := test.fn(test.id)
+			assert.Equal(t, test.expectedResult, formattedId)
+		})
 	}
 }
 
-func Test_FormatQuattroDisplayID(t *testing.T) {
-	key := "quattro_chicago"
-	id := "1234"
+func Test_IOGetters(t *testing.T) {
+	type testRun struct {
+		name           string
+		externalIDs    []string
+		fn             func([]string) string
+		expectedResult string
+	}
 
-	extId := FormatQuattroDisplayID(key, id)
-	if extId != "quattro_chicago:display:1234" {
-		t.Errorf("bad quattro display format; expected: %s; got: %s", "quattro_chicago:display:1234", extId)
+	runs := []testRun{
+		{
+			name:           "customer order",
+			externalIDs:    []string{"customer:order:1234"},
+			fn:             GetCustomerOrder,
+			expectedResult: "1234",
+		},
+		{
+			name:           "account",
+			externalIDs:    []string{"io:account:1234"},
+			fn:             GetIOAccountID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "booking",
+			externalIDs:    []string{"io:booking:1234"},
+			fn:             GetIOBookingID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "customer",
+			externalIDs:    []string{"io:customer:1234"},
+			expectedResult: "1234",
+			fn:             GetIOCustomerID,
+		},
+		{
+			name:           "display",
+			externalIDs:    []string{"io:display:1234"},
+			expectedResult: "1234",
+			fn:             GetIODisplayID,
+		},
+		{
+			name:           "employee",
+			externalIDs:    []string{"io:employee:1234"},
+			fn:             GetIOEmployeeID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "employee number",
+			externalIDs:    []string{"io:employeeNumber:1234"},
+			fn:             GetEmployeeNumber,
+			expectedResult: "1234",
+		},
+		{
+			name:           "group booking",
+			externalIDs:    []string{"io:groupBooking:1234"},
+			fn:             GetIOGroupBookingID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "order line type",
+			externalIDs:    []string{"io:lineType:1234"},
+			fn:             GetIOOrderLineTypeID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "market",
+			externalIDs:    []string{"io:market:1234"},
+			fn:             GetLegacyMarketID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "network",
+			externalIDs:    []string{"io:network:1234"},
+			fn:             GetIONetworkID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "order",
+			externalIDs:    []string{"io:order:1234"},
+			fn:             GetIOOrderID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "order line",
+			externalIDs:    []string{"io:orderLine:1234"},
+			fn:             GetIOOrderLineID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "order market",
+			externalIDs:    []string{"io:orderMarket:1234"},
+			fn:             GetIOOrderMarketID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "order number",
+			externalIDs:    []string{"io:orderNumber:1234"},
+			fn:             GetOrderNumber,
+			expectedResult: "1234",
+		},
+		{
+			name:           "product map",
+			externalIDs:    []string{"io:productMap:1234"},
+			fn:             GetIOProductMapID,
+			expectedResult: "1234",
+		},
+	}
+
+	for _, test := range runs {
+		t.Run(test.name, func(t *testing.T) {
+			actualId := test.fn(test.externalIDs)
+			assert.Equal(t, test.expectedResult, actualId)
+		})
 	}
 }
 
-func Test_FormatQuattroNetworkID(t *testing.T) {
-	key := "quattro_chicago"
-	id := "1234"
+func Test_QuattroGetters(t *testing.T) {
+	type testRun struct {
+		name           string
+		quattroDb      string
+		externalIDs    []string
+		fn             func(string, []string) string
+		expectedResult string
+	}
 
-	extId := FormatQuattroNetworkID(key, id)
-	if extId != "quattro_chicago:network:1234" {
-		t.Errorf("bad quattro display format; expected: %s; got: %s", "quattro_chicago:display:1234", extId)
+	runs := []testRun{
+		{
+			name:           "booking",
+			quattroDb:      "quattro_chicago",
+			externalIDs:    []string{"quattro_chicago:booking:1234"},
+			fn:             GetQuattroBookingID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "campaign",
+			quattroDb:      "chicago",
+			externalIDs:    []string{"quattro_chicago:campaign:1234"},
+			fn:             GetQuattroCampaignID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "campaign segment",
+			quattroDb:      "chicago",
+			externalIDs:    []string{"quattro_chicago:campaignSegment:1234"},
+			fn:             GetQuattroCampaignSegmentID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "digital booking",
+			quattroDb:      "chicago",
+			externalIDs:    []string{"quattro_chicago:digitalBooking:1234"},
+			fn:             GetQuattroDigitalBookingID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "display",
+			quattroDb:      "chicago",
+			externalIDs:    []string{"quattro_chicago:display:1234"},
+			fn:             GetQuattroDisplayID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "network",
+			quattroDb:      "chicago",
+			externalIDs:    []string{"quattro_chicago:network:1234"},
+			fn:             GetQuattroNetworkID,
+			expectedResult: "1234",
+		},
+	}
+
+	for _, test := range runs {
+		t.Run(test.name, func(t *testing.T) {
+			extId := test.fn(test.quattroDb, test.externalIDs)
+			assert.Equal(t, test.expectedResult, extId)
+		})
 	}
 }
 
-func Test_FormatQuattroBookingID(t *testing.T) {
-	key := "quattro_chicago"
-	id := "1234"
-
-	extId := FormatQuattroBookingID(key, id)
-	if extId != "quattro_chicago:booking:1234" {
-		t.Errorf("bad quattro display format; expected: %s; got: %s", "quattro_chicago:booking:1234", extId)
+func Test_MiscGetters(t *testing.T) {
+	type testRun struct {
+		name           string
+		externalIDs    []string
+		fn             func([]string) string
+		expectedResult string
 	}
-}
 
-func Test_FormatQuattroDigitalBookingID(t *testing.T) {
-	key := "quattro_chicago"
-	id := "1234"
+	runs := []testRun{
+		{
+			name:           "customer order",
+			externalIDs:    []string{"customer:order:1234"},
+			expectedResult: "1234",
+			fn:             GetCustomerOrder,
+		},
 
-	extId := FormatQuattroDigitalBookingID(key, id)
-	if extId != "quattro_chicago:digitalBooking:1234" {
-		t.Errorf("bad quattro display format; expected: %s; got: %s", "quattro_chicago:digitalBooking:1234", extId)
+		{
+			name:           "spotchart segment",
+			externalIDs:    []string{"spotchart:segment:1234"},
+			expectedResult: "1234",
+			fn:             GetSpotChartSegment,
+		},
 	}
-}
 
-func Test_FormatIOEmployeeID(t *testing.T) {
-	id := "1234"
-
-	extId := FormatIOEmployeeID(id)
-	if extId != "io:employee:1234" {
-		t.Errorf("bad io employee id format; expected: %s; got: %s", "io:employee:1234", extId)
-	}
-}
-
-func Test_GetIOLegacyDisplayID(t *testing.T) {
-	extId := []string{"io:display:1234"}
-	id := GetLegacyIODisplayID(extId)
-	if id != "1234" {
-		t.Errorf("bad io display id format; expected: %d; got: %s", 1234, id)
-	}
-}
-
-func Test_GetIOLegacyDisplayID_NotRequestedEntity(t *testing.T) {
-	extId := []string{"io:campaign:1234"}
-	id := GetLegacyIODisplayID(extId)
-	if id != "" {
-		t.Errorf("expected nil got %s", id)
-	}
-}
-
-// only returns the first matching id
-func Test_GetIOLegacyDisplayID_MultipleIDs(t *testing.T) {
-	extIds := []string{"io:market:1234", "io:display:1234", "io:display:5678"}
-	id := GetLegacyIODisplayID(extIds)
-	if id != "1234" {
-		t.Errorf("expected %d got %s", 1234, id)
-	}
-}
-
-func Test_GetIOEmployeeID(t *testing.T) {
-	extIds := []string{"io:market:1234", "io:display:1234", "io:employee:5678"}
-	id := GetLegacyIODisplayID(extIds)
-	if id != "1234" {
-		t.Errorf("expected %d got %s", 1234, id)
-	}
-}
-
-func Test_GetLegacyMarketID(t *testing.T) {
-	extIds := []string{"io:market:1234", "io:display:1234555", "io:employee:56786666"}
-	id := GetLegacyMarketID(extIds)
-	if id != "1234" {
-		t.Errorf("expected %d got %s", 1234, id)
-	}
-}
-
-// test getting site code
-func Test_GetLegacySiteCode(t *testing.T) {
-	extId := []string{"io:site:1234"}
-	id := GetLegacySiteCode(extId)
-	if id != "1234" {
-		t.Errorf("bad site_code format; expected: %d; got: %s", 1234, id)
-	}
-}
-
-func Test_GetQuattroBookingID(t *testing.T) {
-	extIds := []string{"io:market:1234", "quattro_chicago:booking:2600", "io:display:5678"}
-	id := GetQuattroBookingID("quattro_chicago", extIds)
-	if id != "2600" {
-		t.Errorf("expected %d got %s", 2600, id)
-	}
-}
-
-func Test_GetQuattroDigitalBookingID(t *testing.T) {
-	extIds := []string{"io:market:1234", "quattro_chicago:digitalBooking:2600", "io:display:5678"}
-	id := GetQuattroDigitalBookingID("quattro_chicago", extIds)
-	if id != "2600" {
-		t.Errorf("expected %d got %s", 2600, id)
-	}
-}
-
-func Test_GetQuattroBookingID_NoBookingID(t *testing.T) {
-	extIds := []string{"io:market:1234", "io:booking:2600", "io:display:5678"}
-	id := GetQuattroBookingID("quattro_chicago", extIds)
-	if id != "" {
-		t.Errorf("expected nil got %s", id)
-	}
-}
-
-func Test_GetEmployeeNumber(t *testing.T) {
-	extIds := []string{"io:employeeNumber:1234", "io:booking:2600", "io:display:5678"}
-	id := GetEmployeeNumber(extIds)
-	if id != "1234" {
-		t.Errorf("expected 1234 got %s", id)
-	}
-}
-
-func Test_GetOrderNumber(t *testing.T) {
-	extIds := []string{"io:orderNumber:1234", "io:booking:2600", "io:display:5678"}
-	id := GetOrderNumber(extIds)
-	if id != "1234" {
-		t.Errorf("expected 1234 got %s", id)
-	}
-}
-
-func Test_GetQuattroCampaignID(t *testing.T) {
-	extIds := []string{"quattro_chicago:campaign:1234", "io:booking:2600", "io:display:5678"}
-	id := GetQuattroCampaignID("quattro_chicago", extIds)
-	if id != "1234" {
-		t.Errorf("expected 1234 got %s", id)
-	}
-}
-
-func Test_GetQuattroCampaignSegmentID(t *testing.T) {
-	extIds := []string{"quattro_chicago:campaignSegment:1234", "io:booking:2600", "io:display:5678"}
-	id := GetQuattroCampaignSegmentID("quattro_chicago", extIds)
-	if id != "1234" {
-		t.Errorf("expected 1234 got %s", id)
-	}
-}
-
-func Test_GetCustomerOrder(t *testing.T) {
-	extIds := []string{"customer:order:1234", "io:booking:2600", "io:display:5678"}
-	id := GetCustomerOrder(extIds)
-	if id != "1234" {
-		t.Errorf("expected 1234 got %s", id)
+	for _, test := range runs {
+		t.Run(test.name, func(t *testing.T) {
+			extId := test.fn(test.externalIDs)
+			assert.Equal(t, test.expectedResult, extId)
+		})
 	}
 }
