@@ -19,6 +19,7 @@ const (
 	ioOrderLineTypePrefix        = "io:lineType:"
 	ioMarketPrefix               = "io:market:"
 	ioNetworkPrefix              = "io:network:"
+	ioNetworkCodePrefix          = "io:networkCode:"
 	ioOrderIDPrefix              = "io:order:"
 	ioOrderLinePrefix            = "io:orderLine:"
 	ioOrderMarketIDPrefix        = "io:orderMarket:"
@@ -113,6 +114,10 @@ func FormatIONetworkID(number interface{}) string {
 	return format(ioNetworkPrefix, fmt.Sprint(number))
 }
 
+func FormatIONetworkCode(number interface{}) string {
+	return format(ioNetworkCodePrefix, fmt.Sprint(number))
+}
+
 func FormatQuattroCampaign(marketCode string, campaignId interface{}) string {
 	return formatQuattroKey(marketCode, quattroCampaignPrefix, fmt.Sprint(campaignId))
 }
@@ -205,6 +210,10 @@ func GetIOOrderLineTypeID(externalIDs []string) string {
 
 func GetIONetworkID(externalIDs []string) string {
 	return parseExternalID(ioNetworkPrefix, externalIDs)
+}
+
+func GetIONetworkCode(externalIDs []string) string {
+	return parseExternalID(ioNetworkCodePrefix, externalIDs)
 }
 
 func GetIOProductMapID(externalIDs []string) string {

@@ -76,6 +76,12 @@ func Test_IOFormatters(t *testing.T) {
 			expectedResult: "io:network:1234",
 		},
 		{
+			name:           "networkCode",
+			id:             "1234",
+			fn:             FormatIONetworkCode,
+			expectedResult: "io:networkCode:1234",
+		},
+		{
 			name:           "order",
 			id:             "1234",
 			fn:             FormatIOOrderID,
