@@ -11,6 +11,7 @@ const (
 	geopathTargetProfilePrefix   = "geopath:targetProfile:"
 	ioAccountIdPrefix            = "io:account:"
 	ioBookingIDPrefix            = "io:booking:"
+	ioCreativePrefix             = "io:creative:"
 	ioCustomerPrefix             = "io:customer:"
 	ioDisplayPrefix              = "io:display:"
 	ioEmployeePrefix             = "io:employee:"
@@ -33,6 +34,8 @@ const (
 	quattroDigitalBookingPrefix  = ":digitalBooking:"
 	quattroDisplayID             = ":display:"
 	quattroNetworkID             = ":network:"
+	spotChartDisplayPrefix       = "spotchart:display:"
+	spotChartScenePrefix         = "spotchart:scene:"
 	spotChartSegmentPrefix       = "spotchart:segment:"
 )
 
@@ -42,12 +45,24 @@ func FormatIOAccount(id interface{}) string {
 	return format(ioAccountIdPrefix, fmt.Sprint(id))
 }
 
+func FormatIOCreative(id interface{}) string {
+	return format(ioCreativePrefix, fmt.Sprint(id))
+}
+
 func FormatIOCustomer(id interface{}) string {
 	return format(ioCustomerPrefix, fmt.Sprint(id))
 }
 
 func FormatCustomerOrder(code interface{}) string {
 	return format(extCustomerOrderPrefix, fmt.Sprint(code))
+}
+
+func FormatSpotChartDisplayID(displayID interface{}) string {
+	return format(spotChartDisplayPrefix, fmt.Sprint(displayID))
+}
+
+func FormatSpotChartSceneID(sceneID interface{}) string {
+	return format(spotChartScenePrefix, fmt.Sprint(sceneID))
 }
 
 func FormatSpotChartSegmentID(segmentID interface{}) string {
@@ -152,12 +167,36 @@ func GetCustomerOrder(externalIDs []string) string {
 	return parseExternalID(extCustomerOrderPrefix, externalIDs)
 }
 
-func GetSpotChartSegment(externalIDs []string) string {
-	return parseExternalID(spotChartSegmentPrefix, externalIDs)
+func GetEmployeeNumber(externalIDs []string) string {
+	return parseExternalID(ioEmployeeNumberPrefix, externalIDs)
 }
 
-func GetLegacyMarketID(externalIDs []string) string {
-	return parseExternalID(ioMarketPrefix, externalIDs)
+func GetIOAccountID(externalIDs []string) string {
+	return parseExternalID(ioAccountIdPrefix, externalIDs)
+}
+
+func GetIOBookingID(externalIDs []string) string {
+	return parseExternalID(ioBookingIDPrefix, externalIDs)
+}
+
+func GetIOCreativeID(externalIDs []string) string {
+	return parseExternalID(ioCreativePrefix, externalIDs)
+}
+
+func GetIOCustomerID(externalIDs []string) string {
+	return parseExternalID(ioCustomerPrefix, externalIDs)
+}
+
+func GetIODisplayID(externalIDs []string) string {
+	return parseExternalID(ioDisplayPrefix, externalIDs)
+}
+
+func GetIOEmployeeID(externalIDs []string) string {
+	return parseExternalID(ioEmployeePrefix, externalIDs)
+}
+
+func GetIOGroupBookingID(externalIDs []string) string {
+	return parseExternalID(ioGroupBookingPrefix, externalIDs)
 }
 
 func GetIOOrderID(externalIDs []string) string {
@@ -170,38 +209,6 @@ func GetIOOrderLineID(externalIDs []string) string {
 
 func GetIOOrderMarketID(externalIDs []string) string {
 	return parseExternalID(ioOrderMarketIDPrefix, externalIDs)
-}
-
-func GetOrderNumber(externalIDs []string) string {
-	return parseExternalID(ioOrderNumberPrefix, externalIDs)
-}
-
-func GetIOAccountID(externalIDs []string) string {
-	return parseExternalID(ioAccountIdPrefix, externalIDs)
-}
-
-func GetIOBookingID(externalIDs []string) string {
-	return parseExternalID(ioBookingIDPrefix, externalIDs)
-}
-
-func GetIOCustomerID(externalIDs []string) string {
-	return parseExternalID(ioCustomerPrefix, externalIDs)
-}
-
-func GetIODisplayID(externalIDs []string) string {
-	return parseExternalID(ioDisplayPrefix, externalIDs)
-}
-
-func GetIOGroupBookingID(externalIDs []string) string {
-	return parseExternalID(ioGroupBookingPrefix, externalIDs)
-}
-
-func GetIOEmployeeID(externalIDs []string) string {
-	return parseExternalID(ioEmployeePrefix, externalIDs)
-}
-
-func GetEmployeeNumber(externalIDs []string) string {
-	return parseExternalID(ioEmployeeNumberPrefix, externalIDs)
 }
 
 func GetIOOrderLineTypeID(externalIDs []string) string {
@@ -220,8 +227,34 @@ func GetIOProductMapID(externalIDs []string) string {
 	return parseExternalID(ioProductMapIDPrefix, externalIDs)
 }
 
+func GetLegacyMarketID(externalIDs []string) string {
+	return parseExternalID(ioMarketPrefix, externalIDs)
+}
+
+func GetLegacySiteCode(externalIDs []string) string {
+	return getLegacyIOEntityNumericID(externalIDs, "site")
+}
+
+func GetLegacyIODisplayID(externalIDs []string) string {
+	return getLegacyIOEntityNumericID(externalIDs, "display")
+}
+
+func GetOrderNumber(externalIDs []string) string {
+	return parseExternalID(ioOrderNumberPrefix, externalIDs)
+}
+
 func GetQuattroBookingID(sourceDbCode string, externalIDs []string) string {
 	prefix := formatQuattroKey(sourceDbCode, quattroBookingPrefix, "")
+	return parseExternalID(prefix, externalIDs)
+}
+
+func GetQuattroCampaignID(marketCode string, externalIDs []string) string {
+	prefix := formatQuattroKey(marketCode, quattroCampaignPrefix, "")
+	return parseExternalID(prefix, externalIDs)
+}
+
+func GetQuattroCampaignSegmentID(marketCode string, externalIDs []string) string {
+	prefix := formatQuattroKey(marketCode, quattroCampaignSegmentPrefix, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
@@ -240,22 +273,31 @@ func GetQuattroNetworkID(sourceDbCode string, externalIDs []string) string {
 	return parseExternalID(prefix, externalIDs)
 }
 
-func GetQuattroCampaignID(marketCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(marketCode, quattroCampaignPrefix, "")
-	return parseExternalID(prefix, externalIDs)
+func GetSpotChartDisplay(externalIDs []string) string {
+	return parseExternalID(spotChartDisplayPrefix, externalIDs)
 }
 
-func GetQuattroCampaignSegmentID(marketCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(marketCode, quattroCampaignSegmentPrefix, "")
-	return parseExternalID(prefix, externalIDs)
+func GetSpotChartScene(externalIDs []string) string {
+	return parseExternalID(spotChartScenePrefix, externalIDs)
 }
 
-func GetLegacySiteCode(externalIDs []string) string {
-	return getLegacyIOEntityNumericID(externalIDs, "site")
+func GetSpotChartSegment(externalIDs []string) string {
+	return parseExternalID(spotChartSegmentPrefix, externalIDs)
 }
 
-func GetLegacyIODisplayID(externalIDs []string) string {
-	return getLegacyIOEntityNumericID(externalIDs, "display")
+/* helpers */
+
+func formatQuattroKey(marketCode string, entity string, id string) string {
+	quattroKey := format(quattroDbPrefix, marketCode)
+	prefix := format(quattroKey, entity)
+	return format(prefix, id)
+}
+
+func format(prefix string, identifier string) string {
+	if strings.HasPrefix(identifier, prefix) {
+		return identifier
+	}
+	return fmt.Sprintf("%s%s", prefix, identifier)
 }
 
 func getLegacyIOEntityNumericID(externalIDs []string, entity string) string {
@@ -270,17 +312,4 @@ func parseExternalID(prefix string, externalIDs []string) string {
 		}
 	}
 	return ""
-}
-
-func formatQuattroKey(marketCode string, entity string, id string) string {
-	quattroKey := format(quattroDbPrefix, marketCode)
-	prefix := format(quattroKey, entity)
-	return format(prefix, id)
-}
-
-func format(prefix string, identifier string) string {
-	if strings.HasPrefix(identifier, prefix) {
-		return identifier
-	}
-	return fmt.Sprintf("%s%s", prefix, identifier)
 }

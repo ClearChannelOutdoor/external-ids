@@ -28,6 +28,12 @@ func Test_IOFormatters(t *testing.T) {
 			expectedResult: "io:booking:1234",
 		},
 		{
+			name:           "creative",
+			id:             "1234",
+			fn:             FormatIOCreative,
+			expectedResult: "io:creative:1234",
+		},
+		{
 			name:           "customer",
 			id:             "1234",
 			fn:             FormatIOCustomer,
@@ -205,7 +211,18 @@ func Test_MiscFormatters(t *testing.T) {
 			fn:             FormatCustomerOrder,
 			expectedResult: "customer:order:1234",
 		},
-
+		{
+			name:           "spotchart display",
+			id:             "1234",
+			fn:             FormatSpotChartDisplayID,
+			expectedResult: "spotchart:display:1234",
+		},
+		{
+			name:           "spotchart scene",
+			id:             "1234",
+			fn:             FormatSpotChartSceneID,
+			expectedResult: "spotchart:scene:1234",
+		},
 		{
 			name:           "spotchart segment",
 			id:             "1234",
@@ -241,6 +258,12 @@ func Test_IOGetters(t *testing.T) {
 			name:           "booking",
 			externalIDs:    []string{"io:booking:1234"},
 			fn:             GetIOBookingID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "creative",
+			externalIDs:    []string{"io:creative:1234"},
+			fn:             GetIOCreativeID,
 			expectedResult: "1234",
 		},
 		{
@@ -450,7 +473,18 @@ func Test_MiscGetters(t *testing.T) {
 			expectedResult: "1234",
 			fn:             GetCustomerOrder,
 		},
-
+		{
+			name:           "spotchart display",
+			externalIDs:    []string{"spotchart:display:1234"},
+			expectedResult: "1234",
+			fn:             GetSpotChartDisplay,
+		},
+		{
+			name:           "spotchart scene",
+			externalIDs:    []string{"spotchart:scene:1234"},
+			expectedResult: "1234",
+			fn:             GetSpotChartScene,
+		},
 		{
 			name:           "spotchart segment",
 			externalIDs:    []string{"spotchart:segment:1234"},
