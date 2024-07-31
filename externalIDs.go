@@ -13,6 +13,7 @@ const (
 	ioBookingIDPrefix            = "io:booking:"
 	ioCreativePrefix             = "io:creative:"
 	ioCustomerPrefix             = "io:customer:"
+	ioDocumentPrefix             = "io:document:"
 	ioDisplayPrefix              = "io:display:"
 	ioEmployeePrefix             = "io:employee:"
 	ioEmployeeNumberPrefix       = "io:employeeNumber:"
@@ -55,6 +56,10 @@ func FormatIOCustomer(id interface{}) string {
 
 func FormatCustomerOrder(code interface{}) string {
 	return format(extCustomerOrderPrefix, fmt.Sprint(code))
+}
+
+func FormatIODocument(id interface{}) string {
+	return format(ioDocumentPrefix, fmt.Sprint(id))
 }
 
 func FormatSpotChartDisplayID(displayID interface{}) string {
@@ -185,6 +190,10 @@ func GetIOCreativeID(externalIDs []string) string {
 
 func GetIOCustomerID(externalIDs []string) string {
 	return parseExternalID(ioCustomerPrefix, externalIDs)
+}
+
+func GetIODocumentID(externalIDs []string) string {
+	return parseExternalID(ioDocumentPrefix, externalIDs)
 }
 
 func GetIODisplayID(externalIDs []string) string {
