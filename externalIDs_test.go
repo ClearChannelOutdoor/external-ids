@@ -40,6 +40,12 @@ func Test_IOFormatters(t *testing.T) {
 			expectedResult: "io:customer:1234",
 		},
 		{
+			name:           "documents",
+			id:             "1234",
+			fn:             FormatIODocument,
+			expectedResult: "io:document:1234",
+		},
+		{
 			name:           "display",
 			id:             "1234",
 			fn:             FormatIODisplayID,
@@ -271,6 +277,12 @@ func Test_IOGetters(t *testing.T) {
 			externalIDs:    []string{"io:customer:1234"},
 			expectedResult: "1234",
 			fn:             GetIOCustomerID,
+		},
+		{
+			name:           "document",
+			externalIDs:    []string{"io:document:1234"},
+			expectedResult: "1234",
+			fn:             GetIODocumentID,
 		},
 		{
 			name:           "display",
