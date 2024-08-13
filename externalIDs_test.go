@@ -28,6 +28,12 @@ func Test_IOFormatters(t *testing.T) {
 			expectedResult: "io:booking:1234",
 		},
 		{
+			name:           "contract document",
+			id:             "1234",
+			fn:             FormatIOContractDocument,
+			expectedResult: "io:contractDocument:1234",
+		},
+		{
 			name:           "creative",
 			id:             "1234",
 			fn:             FormatIOCreative,
@@ -265,6 +271,12 @@ func Test_IOGetters(t *testing.T) {
 			externalIDs:    []string{"io:booking:1234"},
 			fn:             GetIOBookingID,
 			expectedResult: "1234",
+		},
+		{
+			name:           "contract document",
+			externalIDs:    []string{"io:contractDocument:1234"},
+			expectedResult: "1234",
+			fn:             GetIOContractDocumentID,
 		},
 		{
 			name:           "creative",

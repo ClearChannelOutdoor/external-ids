@@ -11,6 +11,7 @@ const (
 	geopathTargetProfilePrefix   = "geopath:targetProfile:"
 	ioAccountIdPrefix            = "io:account:"
 	ioBookingIDPrefix            = "io:booking:"
+	ioContractDocumentPrefix     = "io:contractDocument:"
 	ioCreativePrefix             = "io:creative:"
 	ioCustomerPrefix             = "io:customer:"
 	ioDocumentPrefix             = "io:document:"
@@ -60,6 +61,10 @@ func FormatCustomerOrder(code interface{}) string {
 
 func FormatIODocument(id interface{}) string {
 	return format(ioDocumentPrefix, fmt.Sprint(id))
+}
+
+func FormatIOContractDocument(id interface{}) string {
+	return format(ioContractDocumentPrefix, fmt.Sprint(id))
 }
 
 func FormatSpotChartDisplayID(displayID interface{}) string {
@@ -194,6 +199,10 @@ func GetIOCustomerID(externalIDs []string) string {
 
 func GetIODocumentID(externalIDs []string) string {
 	return parseExternalID(ioDocumentPrefix, externalIDs)
+}
+
+func GetIOContractDocumentID(externalIDs []string) string {
+	return parseExternalID(ioContractDocumentPrefix, externalIDs)
 }
 
 func GetIODisplayID(externalIDs []string) string {
