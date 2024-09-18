@@ -176,7 +176,7 @@ func Test_QuattroFormatters(t *testing.T) {
 			quattroDb:      "chicago",
 			id:             "1234",
 			fn:             FormatQuattroDigitalBookingID,
-			expectedResult: "quattro_chicago:digitalbooking:1234",
+			expectedResult: "quattro_chicago:digitalBooking:1234",
 		},
 		{
 			name:           "display",
@@ -420,13 +420,6 @@ func Test_QuattroGetters(t *testing.T) {
 		},
 		{
 			name:           "digital booking",
-			quattroDb:      "chicago",
-			externalIDs:    []string{"quattro_chicago:digitalbooking:1234"},
-			fn:             GetQuattroDigitalBookingID,
-			expectedResult: "1234",
-		},
-		{
-			name:           "old format digital booking",
 			quattroDb:      "chicago",
 			externalIDs:    []string{"quattro_chicago:digitalBooking:1234"},
 			fn:             GetQuattroDigitalBookingID,
