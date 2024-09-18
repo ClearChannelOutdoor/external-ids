@@ -162,14 +162,14 @@ func Test_QuattroFormatters(t *testing.T) {
 			quattroDb:      "chicago",
 			id:             "1234",
 			fn:             FormatQuattroCampaignDetail,
-			expectedResult: "quattro_chicago:campaignDetail:1234",
+			expectedResult: "quattro_chicago:detail:1234",
 		},
 		{
 			name:           "campaign segment",
 			quattroDb:      "chicago",
 			id:             "1234",
 			fn:             FormatQuattroCampaignSegment,
-			expectedResult: "quattro_chicago:campaignSegment:1234",
+			expectedResult: "quattro_chicago:segment:1234",
 		},
 		{
 			name:           "digital booking",
@@ -406,6 +406,13 @@ func Test_QuattroGetters(t *testing.T) {
 		},
 		{
 			name:           "campaign segment",
+			quattroDb:      "chicago",
+			externalIDs:    []string{"quattro_chicago:segment:1234"},
+			fn:             GetQuattroCampaignSegmentID,
+			expectedResult: "1234",
+		},
+		{
+			name:           "old campaign segment format",
 			quattroDb:      "chicago",
 			externalIDs:    []string{"quattro_chicago:campaignSegment:1234"},
 			fn:             GetQuattroCampaignSegmentID,
