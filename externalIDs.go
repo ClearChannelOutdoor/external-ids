@@ -6,38 +6,40 @@ import (
 )
 
 const (
-	extCustomerOrderPrefix       = "customer:order:"
-	geopathSegmentCodePrefix     = "geopath:segmentCode:"
-	geopathTargetProfilePrefix   = "geopath:targetProfile:"
-	ioAccountIdPrefix            = "io:account:"
-	ioBookingIDPrefix            = "io:booking:"
-	ioCreativePrefix             = "io:creative:"
-	ioCustomerPrefix             = "io:customer:"
-	ioDocumentPrefix             = "io:document:"
-	ioDisplayPrefix              = "io:display:"
-	ioEmployeePrefix             = "io:employee:"
-	ioEmployeeNumberPrefix       = "io:employeeNumber:"
-	ioGroupBookingPrefix         = "io:groupBooking:"
-	ioOrderLineTypePrefix        = "io:lineType:"
-	ioMarketPrefix               = "io:market:"
-	ioNetworkPrefix              = "io:network:"
-	ioNetworkCodePrefix          = "io:networkCode:"
-	ioOrderIDPrefix              = "io:order:"
-	ioOrderLinePrefix            = "io:orderLine:"
-	ioOrderMarketIDPrefix        = "io:orderMarket:"
-	ioOrderNumberPrefix          = "io:orderNumber:"
-	ioProductMapIDPrefix         = "io:productMap:"
-	quattroDbPrefix              = "quattro_"
-	quattroBookingPrefix         = ":booking:"
-	quattroCampaignPrefix        = ":campaign:"
-	quattroCampaignDetailPrefix  = ":campaignDetail:"
-	quattroCampaignSegmentPrefix = ":campaignSegment:"
-	quattroDigitalBookingPrefix  = ":digitalBooking:"
-	quattroDisplayID             = ":display:"
-	quattroNetworkID             = ":network:"
-	spotChartDisplayPrefix       = "spotchart:display:"
-	spotChartScenePrefix         = "spotchart:scene:"
-	spotChartSegmentPrefix       = "spotchart:segment:"
+	extCustomerOrderPrefix          = "customer:order:"
+	geopathSegmentCodePrefix        = "geopath:segmentCode:"
+	geopathTargetProfilePrefix      = "geopath:targetProfile:"
+	ioAccountIdPrefix               = "io:account:"
+	ioBookingIDPrefix               = "io:booking:"
+	ioCreativePrefix                = "io:creative:"
+	ioCustomerPrefix                = "io:customer:"
+	ioDocumentPrefix                = "io:document:"
+	ioDisplayPrefix                 = "io:display:"
+	ioEmployeePrefix                = "io:employee:"
+	ioEmployeeNumberPrefix          = "io:employeeNumber:"
+	ioGroupBookingPrefix            = "io:groupBooking:"
+	ioOrderLineTypePrefix           = "io:lineType:"
+	ioMarketPrefix                  = "io:market:"
+	ioNetworkPrefix                 = "io:network:"
+	ioNetworkCodePrefix             = "io:networkCode:"
+	ioOrderIDPrefix                 = "io:order:"
+	ioOrderLinePrefix               = "io:orderLine:"
+	ioOrderMarketIDPrefix           = "io:orderMarket:"
+	ioOrderNumberPrefix             = "io:orderNumber:"
+	ioProductMapIDPrefix            = "io:productMap:"
+	quattroDbPrefix                 = "quattro_"
+	quattroBookingPrefix            = ":booking:"
+	quattroCampaignPrefix           = ":campaign:"
+	quattroDetailPrefix             = ":detail:"
+	quattroSegmentPrefix            = ":segment:"
+	quattroDigitalBookingPrefix     = ":digitalBooking:"
+	quattroDisplayID                = ":display:"
+	quattroNetworkID                = ":network:"
+	oldQuattroCampaignDetailPrefix  = ":campaignDetail:"
+	oldQuattroCampaignSegmentPrefix = ":campaignSegment:"
+	spotChartDisplayPrefix          = "spotchart:display:"
+	spotChartScenePrefix            = "spotchart:scene:"
+	spotChartSegmentPrefix          = "spotchart:segment:"
 )
 
 /* FORMATTERS */
@@ -143,11 +145,11 @@ func FormatQuattroCampaign(marketCode string, campaignId interface{}) string {
 }
 
 func FormatQuattroCampaignSegment(marketCode string, segmentId interface{}) string {
-	return formatQuattroKey(marketCode, quattroCampaignSegmentPrefix, fmt.Sprint(segmentId))
+	return formatQuattroKey(marketCode, quattroSegmentPrefix, fmt.Sprint(segmentId))
 }
 
 func FormatQuattroCampaignDetail(marketCode string, detailId interface{}) string {
-	return formatQuattroKey(marketCode, quattroCampaignDetailPrefix, fmt.Sprint(detailId))
+	return formatQuattroKey(marketCode, quattroDetailPrefix, fmt.Sprint(detailId))
 }
 
 func FormatQuattroBookingID(sourceDbCode string, bookingID interface{}) string {
@@ -263,8 +265,14 @@ func GetQuattroCampaignID(marketCode string, externalIDs []string) string {
 }
 
 func GetQuattroCampaignSegmentID(marketCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(marketCode, quattroCampaignSegmentPrefix, "")
-	return parseExternalID(prefix, externalIDs)
+	prefix := formatQuattroKey(marketCode, quattroSegmentPrefix, "")
+	extId := parseExternalID(prefix, externalIDs)
+	if extId != "" {
+		return extId
+	}
+
+	oldPrefix := formatQuattroKey(marketCode, oldQuattroCampaignSegmentPrefix, "")
+	return parseExternalID(oldPrefix, externalIDs)
 }
 
 func GetQuattroDigitalBookingID(sourceDbCode string, externalIDs []string) string {
