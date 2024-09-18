@@ -32,7 +32,7 @@ const (
 	quattroCampaignPrefix        = ":campaign:"
 	quattroCampaignDetailPrefix  = ":campaignDetail:"
 	quattroCampaignSegmentPrefix = ":campaignSegment:"
-	quattroDigitalBookingPrefix  = ":digitalBooking:"
+	quattroDigitalBookingPrefix  = ":digitalbooking:"
 	quattroDisplayID             = ":display:"
 	quattroNetworkID             = ":network:"
 	spotChartDisplayPrefix       = "spotchart:display:"
