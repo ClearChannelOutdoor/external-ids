@@ -186,6 +186,13 @@ func Test_QuattroFormatters(t *testing.T) {
 			expectedResult: "quattro_chicago:display:1234",
 		},
 		{
+			name:           "market",
+			quattroDb:      "chicago",
+			id:             "*",
+			fn:             FormatQuattroMarketID,
+			expectedResult: "quattro_chicago:market:*",
+		},
+		{
 			name:           "network",
 			quattroDb:      "chicago",
 			id:             "1234",
@@ -452,6 +459,13 @@ func Test_QuattroGetters(t *testing.T) {
 			externalIDs:    []string{"el_paso:display:1234"},
 			fn:             GetQuattroDisplayID,
 			expectedResult: "",
+		},
+		{
+			name:           "market",
+			quattroDb:      "chicago",
+			externalIDs:    []string{"quattro_chicago:market:1234"},
+			fn:             GetQuattroMarketID,
+			expectedResult: "1234",
 		},
 		{
 			name:           "network",

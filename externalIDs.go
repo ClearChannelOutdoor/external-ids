@@ -34,6 +34,7 @@ const (
 	quattroSegmentPrefix            = ":segment:"
 	quattroDigitalBookingPrefix     = ":digitalBooking:"
 	quattroDisplayID                = ":display:"
+	quattroMarketID                 = ":market:"
 	quattroNetworkID                = ":network:"
 	oldQuattroCampaignDetailPrefix  = ":campaignDetail:"
 	oldQuattroCampaignSegmentPrefix = ":campaignSegment:"
@@ -164,6 +165,10 @@ func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
 }
 
+func FormatQuattroMarketID(sourceDbCode string, marketID interface{}) string {
+	return formatQuattroKey(sourceDbCode, quattroMarketID, fmt.Sprint(marketID))
+}
+
 func FormatQuattroNetworkID(sourceDbCode string, digitalProductID interface{}) string {
 	return formatQuattroKey(sourceDbCode, quattroNetworkID, fmt.Sprint(digitalProductID))
 }
@@ -282,6 +287,11 @@ func GetQuattroDigitalBookingID(sourceDbCode string, externalIDs []string) strin
 
 func GetQuattroDisplayID(sourceDbCode string, externalIDs []string) string {
 	prefix := formatQuattroKey(sourceDbCode, quattroDisplayID, "")
+	return parseExternalID(prefix, externalIDs)
+}
+
+func GetQuattroMarketID(sourceDbCode string, externalIDs []string) string {
+	prefix := formatQuattroKey(sourceDbCode, quattroMarketID, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
