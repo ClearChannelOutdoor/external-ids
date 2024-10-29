@@ -38,6 +38,7 @@ const (
 	quattroNetworkID                = ":network:"
 	oldQuattroCampaignDetailPrefix  = ":campaignDetail:"
 	oldQuattroCampaignSegmentPrefix = ":campaignSegment:"
+	salesforceOpportunityPrefix     = "salesforce:opportunity:"
 	spotChartDisplayPrefix          = "spotchart:display:"
 	spotChartScenePrefix            = "spotchart:scene:"
 	spotChartSegmentPrefix          = "spotchart:segment:"
@@ -63,6 +64,10 @@ func FormatCustomerOrder(code interface{}) string {
 
 func FormatIODocument(id interface{}) string {
 	return format(ioDocumentPrefix, fmt.Sprint(id))
+}
+
+func FormatSFOpportunityID(oppID interface{}) string {
+	return format(salesforceOpportunityPrefix, fmt.Sprint(oppID))
 }
 
 func FormatSpotChartDisplayID(displayID interface{}) string {
@@ -298,6 +303,10 @@ func GetQuattroMarketID(sourceDbCode string, externalIDs []string) string {
 func GetQuattroNetworkID(sourceDbCode string, externalIDs []string) string {
 	prefix := formatQuattroKey(sourceDbCode, quattroNetworkID, "")
 	return parseExternalID(prefix, externalIDs)
+}
+
+func GetSFOpportunityID(externalIDs []string) string {
+	return parseExternalID(salesforceOpportunityPrefix, externalIDs)
 }
 
 func GetSpotChartDisplay(externalIDs []string) string {
