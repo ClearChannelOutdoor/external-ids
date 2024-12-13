@@ -225,6 +225,12 @@ func Test_SalesforceFormatters(t *testing.T) {
 			expectedResult: "salesforce:display:1234",
 		},
 		{
+			name:           "sf display rate",
+			id:             "1234",
+			fn:             FormatSFDisplayRateID,
+			expectedResult: "salesforce:displayRate:1234",
+		},
+		{
 			name:           "sf bucket",
 			id:             "1234",
 			fn:             FormatSFBucketID,
@@ -247,6 +253,18 @@ func Test_SalesforceFormatters(t *testing.T) {
 			id:             "1234",
 			fn:             FormatSFOpportunityID,
 			expectedResult: "salesforce:opportunity:1234",
+		},
+		{
+			name:           "sf panel line item",
+			id:             "1234",
+			fn:             FormatSFPanelLineItemID,
+			expectedResult: "salesforce:panelLineItem:1234",
+		},
+		{
+			name:           "sf plan",
+			id:             "1234",
+			fn:             FormatSFPlanID,
+			expectedResult: "salesforce:plan:1234",
 		},
 	}
 
@@ -575,6 +593,12 @@ func Test_SalesforceGetters(t *testing.T) {
 			fn:             GetSFDisplayID,
 		},
 		{
+			name:           "sf display rate",
+			externalIDs:    []string{"salesforce:displayRate:1234"},
+			expectedResult: "1234",
+			fn:             GetSFDisplayRateID,
+		},
+		{
 			name:           "sf bucket",
 			externalIDs:    []string{"salesforce:bucket:1234"},
 			expectedResult: "1234",
@@ -597,6 +621,18 @@ func Test_SalesforceGetters(t *testing.T) {
 			externalIDs:    []string{"salesforce:opportunity:1234"},
 			expectedResult: "1234",
 			fn:             GetSFOpportunityID,
+		},
+		{
+			name:           "sf panel line item",
+			externalIDs:    []string{"salesforce:panelLineItem:1234"},
+			expectedResult: "1234",
+			fn:             GetSFPanelLineItemID,
+		},
+		{
+			name:           "sf plan",
+			externalIDs:    []string{"salesforce:plan:1234"},
+			expectedResult: "1234",
+			fn:             GetSFPlanID,
 		},
 	}
 

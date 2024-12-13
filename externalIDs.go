@@ -46,11 +46,14 @@ const (
 	oldQuattroCampaignSegmentPrefix = ":campaignSegment:"
 
 	// Salesforce Formats
-	sfDisplayPrefix     = "salesforce:display:"
-	sfBucketPrefix      = "salesforce:bucket:"
-	sfMatrixPrefix      = "salesforce:matrix:"
-	sfMatrixLinePrefix  = "salesforce:matrixLine:"
-	sfOpportunityPrefix = "salesforce:opportunity:"
+	sfDisplayPrefix       = "salesforce:display:"
+	sfDisplayRatePrefix   = "salesforce:displayRate:"
+	sfBucketPrefix        = "salesforce:bucket:"
+	sfMatrixPrefix        = "salesforce:matrix:"
+	sfMatrixLinePrefix    = "salesforce:matrixLine:"
+	sfOpportunityPrefix   = "salesforce:opportunity:"
+	sfPanelLineItemPrefix = "salesforce:panelLineItem:"
+	sfPlanPrefix          = "salesforce:plan:"
 
 	// Spotchart Formats
 	spotChartDisplayPrefix = "spotchart:display:"
@@ -184,6 +187,10 @@ func FormatSFDisplayID(id interface{}) string {
 	return format(sfDisplayPrefix, fmt.Sprint(id))
 }
 
+func FormatSFDisplayRateID(id interface{}) string {
+	return format(sfDisplayRatePrefix, fmt.Sprint(id))
+}
+
 func FormatSFBucketID(id interface{}) string {
 	return format(sfBucketPrefix, fmt.Sprint(id))
 }
@@ -198,6 +205,14 @@ func FormatSFMatrixLineID(id interface{}) string {
 
 func FormatSFOpportunityID(oppID interface{}) string {
 	return format(sfOpportunityPrefix, fmt.Sprint(oppID))
+}
+
+func FormatSFPanelLineItemID(id interface{}) string {
+	return format(sfPanelLineItemPrefix, fmt.Sprint(id))
+}
+
+func FormatSFPlanID(id interface{}) string {
+	return format(sfPlanPrefix, fmt.Sprint(id))
 }
 
 // Spotchart Formatters
@@ -351,6 +366,10 @@ func GetSFDisplayID(externalIDs []string) string {
 	return parseExternalID(sfDisplayPrefix, externalIDs)
 }
 
+func GetSFDisplayRateID(externalIDs []string) string {
+	return parseExternalID(sfDisplayRatePrefix, externalIDs)
+}
+
 func GetSFBucketID(externalIDs []string) string {
 	return parseExternalID(sfBucketPrefix, externalIDs)
 }
@@ -365,6 +384,14 @@ func GetSFMatrixLineID(externalIDs []string) string {
 
 func GetSFOpportunityID(externalIDs []string) string {
 	return parseExternalID(sfOpportunityPrefix, externalIDs)
+}
+
+func GetSFPanelLineItemID(externalIDs []string) string {
+	return parseExternalID(sfPanelLineItemPrefix, externalIDs)
+}
+
+func GetSFPlanID(externalIDs []string) string {
+	return parseExternalID(sfPlanPrefix, externalIDs)
 }
 
 // SpotChart Getters
