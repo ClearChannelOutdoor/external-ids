@@ -6,27 +6,33 @@ import (
 )
 
 const (
-	extCustomerOrderPrefix          = "customer:order:"
-	geopathSegmentCodePrefix        = "geopath:segmentCode:"
-	geopathTargetProfilePrefix      = "geopath:targetProfile:"
-	ioAccountIdPrefix               = "io:account:"
-	ioBookingIDPrefix               = "io:booking:"
-	ioCreativePrefix                = "io:creative:"
-	ioCustomerPrefix                = "io:customer:"
-	ioDocumentPrefix                = "io:document:"
-	ioDisplayPrefix                 = "io:display:"
-	ioEmployeePrefix                = "io:employee:"
-	ioEmployeeNumberPrefix          = "io:employeeNumber:"
-	ioGroupBookingPrefix            = "io:groupBooking:"
-	ioOrderLineTypePrefix           = "io:lineType:"
-	ioMarketPrefix                  = "io:market:"
-	ioNetworkPrefix                 = "io:network:"
-	ioNetworkCodePrefix             = "io:networkCode:"
-	ioOrderIDPrefix                 = "io:order:"
-	ioOrderLinePrefix               = "io:orderLine:"
-	ioOrderMarketIDPrefix           = "io:orderMarket:"
-	ioOrderNumberPrefix             = "io:orderNumber:"
-	ioProductMapIDPrefix            = "io:productMap:"
+	extCustomerOrderPrefix = "customer:order:"
+
+	// Geopath Formats
+	geopathSegmentCodePrefix   = "geopath:segmentCode:"
+	geopathTargetProfilePrefix = "geopath:targetProfile:"
+
+	// IO Formats
+	ioAccountIdPrefix      = "io:account:"
+	ioBookingIDPrefix      = "io:booking:"
+	ioCreativePrefix       = "io:creative:"
+	ioCustomerPrefix       = "io:customer:"
+	ioDocumentPrefix       = "io:document:"
+	ioDisplayPrefix        = "io:display:"
+	ioEmployeePrefix       = "io:employee:"
+	ioEmployeeNumberPrefix = "io:employeeNumber:"
+	ioGroupBookingPrefix   = "io:groupBooking:"
+	ioOrderLineTypePrefix  = "io:lineType:"
+	ioMarketPrefix         = "io:market:"
+	ioNetworkPrefix        = "io:network:"
+	ioNetworkCodePrefix    = "io:networkCode:"
+	ioOrderIDPrefix        = "io:order:"
+	ioOrderLinePrefix      = "io:orderLine:"
+	ioOrderMarketIDPrefix  = "io:orderMarket:"
+	ioOrderNumberPrefix    = "io:orderNumber:"
+	ioProductMapIDPrefix   = "io:productMap:"
+
+	// Quattro Formats
 	quattroDbPrefix                 = "quattro_"
 	quattroBookingPrefix            = ":booking:"
 	quattroCampaignPrefix           = ":campaign:"
@@ -38,16 +44,41 @@ const (
 	quattroNetworkID                = ":network:"
 	oldQuattroCampaignDetailPrefix  = ":campaignDetail:"
 	oldQuattroCampaignSegmentPrefix = ":campaignSegment:"
-	salesforceOpportunityPrefix     = "salesforce:opportunity:"
-	spotChartDisplayPrefix          = "spotchart:display:"
-	spotChartScenePrefix            = "spotchart:scene:"
-	spotChartSegmentPrefix          = "spotchart:segment:"
+
+	// Salesforce Formats
+	sfDisplayPrefix       = "salesforce:display:"
+	sfDisplayRatePrefix   = "salesforce:displayRate:"
+	sfBucketPrefix        = "salesforce:bucket:"
+	sfMatrixPrefix        = "salesforce:matrix:"
+	sfMatrixLinePrefix    = "salesforce:matrixLine:"
+	sfOpportunityPrefix   = "salesforce:opportunity:"
+	sfPanelLineItemPrefix = "salesforce:panelLineItem:"
+	sfPlanPrefix          = "salesforce:plan:"
+
+	// Spotchart Formats
+	spotChartDisplayPrefix = "spotchart:display:"
+	spotChartScenePrefix   = "spotchart:scene:"
+	spotChartSegmentPrefix = "spotchart:segment:"
 )
 
 /* FORMATTERS */
 
+// Geopath Formatters
+func FormatGeopathTargetProfile(code interface{}) string {
+	return format(geopathTargetProfilePrefix, fmt.Sprint(code))
+}
+
+func FormatGeopathSegmentCode(code interface{}) string {
+	return format(geopathSegmentCodePrefix, fmt.Sprint(code))
+}
+
+// IO Formatters
 func FormatIOAccount(id interface{}) string {
 	return format(ioAccountIdPrefix, fmt.Sprint(id))
+}
+
+func FormatIOBookingID(bookingID interface{}) string {
+	return format(ioBookingIDPrefix, fmt.Sprint(bookingID))
 }
 
 func FormatIOCreative(id interface{}) string {
@@ -64,58 +95,6 @@ func FormatCustomerOrder(code interface{}) string {
 
 func FormatIODocument(id interface{}) string {
 	return format(ioDocumentPrefix, fmt.Sprint(id))
-}
-
-func FormatSFOpportunityID(oppID interface{}) string {
-	return format(salesforceOpportunityPrefix, fmt.Sprint(oppID))
-}
-
-func FormatSpotChartDisplayID(displayID interface{}) string {
-	return format(spotChartDisplayPrefix, fmt.Sprint(displayID))
-}
-
-func FormatSpotChartSceneID(sceneID interface{}) string {
-	return format(spotChartScenePrefix, fmt.Sprint(sceneID))
-}
-
-func FormatSpotChartSegmentID(segmentID interface{}) string {
-	return format(spotChartSegmentPrefix, fmt.Sprint(segmentID))
-}
-
-func FormatGeopathSegmentCode(code interface{}) string {
-	return format(geopathSegmentCodePrefix, fmt.Sprint(code))
-}
-
-func FormatGeopathTargetProfile(code interface{}) string {
-	return format(geopathTargetProfilePrefix, fmt.Sprint(code))
-}
-
-func FormatIOOrderID(orderID interface{}) string {
-	return format(ioOrderIDPrefix, fmt.Sprint(orderID))
-}
-
-func FormatIOOrderNumber(number interface{}) string {
-	return format(ioOrderNumberPrefix, fmt.Sprint(number))
-}
-
-func FormatIOOrderLine(id interface{}) string {
-	return format(ioOrderLinePrefix, fmt.Sprint(id))
-}
-
-func FormatIOOrderLineType(id interface{}) string {
-	return format(ioOrderLineTypePrefix, fmt.Sprint(id))
-}
-
-func FormatIOOrderMarket(id interface{}) string {
-	return format(ioOrderMarketIDPrefix, fmt.Sprint(id))
-}
-
-func FormatIOProductMap(id interface{}) string {
-	return format(ioProductMapIDPrefix, fmt.Sprint(id))
-}
-
-func FormatIOBookingID(bookingID interface{}) string {
-	return format(ioBookingIDPrefix, fmt.Sprint(bookingID))
 }
 
 func FormatIODisplayID(number interface{}) string {
@@ -146,6 +125,31 @@ func FormatIONetworkCode(number interface{}) string {
 	return format(ioNetworkCodePrefix, fmt.Sprint(number))
 }
 
+func FormatIOOrderID(orderID interface{}) string {
+	return format(ioOrderIDPrefix, fmt.Sprint(orderID))
+}
+
+func FormatIOOrderNumber(number interface{}) string {
+	return format(ioOrderNumberPrefix, fmt.Sprint(number))
+}
+
+func FormatIOOrderLine(id interface{}) string {
+	return format(ioOrderLinePrefix, fmt.Sprint(id))
+}
+
+func FormatIOOrderLineType(id interface{}) string {
+	return format(ioOrderLineTypePrefix, fmt.Sprint(id))
+}
+
+func FormatIOOrderMarket(id interface{}) string {
+	return format(ioOrderMarketIDPrefix, fmt.Sprint(id))
+}
+
+func FormatIOProductMap(id interface{}) string {
+	return format(ioProductMapIDPrefix, fmt.Sprint(id))
+}
+
+// Quattro Formatters
 func FormatQuattroCampaign(marketCode string, campaignId interface{}) string {
 	return formatQuattroKey(marketCode, quattroCampaignPrefix, fmt.Sprint(campaignId))
 }
@@ -178,11 +182,61 @@ func FormatQuattroNetworkID(sourceDbCode string, digitalProductID interface{}) s
 	return formatQuattroKey(sourceDbCode, quattroNetworkID, fmt.Sprint(digitalProductID))
 }
 
+// SF Formatters
+func FormatSFDisplayID(id interface{}) string {
+	return format(sfDisplayPrefix, fmt.Sprint(id))
+}
+
+func FormatSFDisplayRateID(id interface{}) string {
+	return format(sfDisplayRatePrefix, fmt.Sprint(id))
+}
+
+func FormatSFBucketID(id interface{}) string {
+	return format(sfBucketPrefix, fmt.Sprint(id))
+}
+
+func FormatSFMatrixID(id interface{}) string {
+	return format(sfMatrixPrefix, fmt.Sprint(id))
+}
+
+func FormatSFMatrixLineID(id interface{}) string {
+	return format(sfMatrixLinePrefix, fmt.Sprint(id))
+}
+
+func FormatSFOpportunityID(oppID interface{}) string {
+	return format(sfOpportunityPrefix, fmt.Sprint(oppID))
+}
+
+func FormatSFPanelLineItemID(id interface{}) string {
+	return format(sfPanelLineItemPrefix, fmt.Sprint(id))
+}
+
+func FormatSFPlanID(id interface{}) string {
+	return format(sfPlanPrefix, fmt.Sprint(id))
+}
+
+// Spotchart Formatters
+func FormatSpotChartDisplayID(displayID interface{}) string {
+	return format(spotChartDisplayPrefix, fmt.Sprint(displayID))
+}
+
+func FormatSpotChartSceneID(sceneID interface{}) string {
+	return format(spotChartScenePrefix, fmt.Sprint(sceneID))
+}
+
+func FormatSpotChartSegmentID(segmentID interface{}) string {
+	return format(spotChartSegmentPrefix, fmt.Sprint(segmentID))
+}
+
 /* GETTERS */
 
 func GetCustomerOrder(externalIDs []string) string {
 	return parseExternalID(extCustomerOrderPrefix, externalIDs)
 }
+
+// Geopath Getters
+
+// IO Getters
 
 func GetEmployeeNumber(externalIDs []string) string {
 	return parseExternalID(ioEmployeeNumberPrefix, externalIDs)
@@ -220,6 +274,14 @@ func GetIOGroupBookingID(externalIDs []string) string {
 	return parseExternalID(ioGroupBookingPrefix, externalIDs)
 }
 
+func GetIONetworkID(externalIDs []string) string {
+	return parseExternalID(ioNetworkPrefix, externalIDs)
+}
+
+func GetIONetworkCode(externalIDs []string) string {
+	return parseExternalID(ioNetworkCodePrefix, externalIDs)
+}
+
 func GetIOOrderID(externalIDs []string) string {
 	return parseExternalID(ioOrderIDPrefix, externalIDs)
 }
@@ -234,14 +296,6 @@ func GetIOOrderMarketID(externalIDs []string) string {
 
 func GetIOOrderLineTypeID(externalIDs []string) string {
 	return parseExternalID(ioOrderLineTypePrefix, externalIDs)
-}
-
-func GetIONetworkID(externalIDs []string) string {
-	return parseExternalID(ioNetworkPrefix, externalIDs)
-}
-
-func GetIONetworkCode(externalIDs []string) string {
-	return parseExternalID(ioNetworkCodePrefix, externalIDs)
 }
 
 func GetIOProductMapID(externalIDs []string) string {
@@ -263,6 +317,8 @@ func GetLegacyIODisplayID(externalIDs []string) string {
 func GetOrderNumber(externalIDs []string) string {
 	return parseExternalID(ioOrderNumberPrefix, externalIDs)
 }
+
+// Quattro Getters
 
 func GetQuattroBookingID(sourceDbCode string, externalIDs []string) string {
 	prefix := formatQuattroKey(sourceDbCode, quattroBookingPrefix, "")
@@ -305,10 +361,40 @@ func GetQuattroNetworkID(sourceDbCode string, externalIDs []string) string {
 	return parseExternalID(prefix, externalIDs)
 }
 
-func GetSFOpportunityID(externalIDs []string) string {
-	return parseExternalID(salesforceOpportunityPrefix, externalIDs)
+// SF Getters
+func GetSFDisplayID(externalIDs []string) string {
+	return parseExternalID(sfDisplayPrefix, externalIDs)
 }
 
+func GetSFDisplayRateID(externalIDs []string) string {
+	return parseExternalID(sfDisplayRatePrefix, externalIDs)
+}
+
+func GetSFBucketID(externalIDs []string) string {
+	return parseExternalID(sfBucketPrefix, externalIDs)
+}
+
+func GetSFMatrixID(externalIDs []string) string {
+	return parseExternalID(sfMatrixPrefix, externalIDs)
+}
+
+func GetSFMatrixLineID(externalIDs []string) string {
+	return parseExternalID(sfMatrixLinePrefix, externalIDs)
+}
+
+func GetSFOpportunityID(externalIDs []string) string {
+	return parseExternalID(sfOpportunityPrefix, externalIDs)
+}
+
+func GetSFPanelLineItemID(externalIDs []string) string {
+	return parseExternalID(sfPanelLineItemPrefix, externalIDs)
+}
+
+func GetSFPlanID(externalIDs []string) string {
+	return parseExternalID(sfPlanPrefix, externalIDs)
+}
+
+// SpotChart Getters
 func GetSpotChartDisplay(externalIDs []string) string {
 	return parseExternalID(spotChartDisplayPrefix, externalIDs)
 }

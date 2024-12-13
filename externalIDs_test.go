@@ -209,7 +209,7 @@ func Test_QuattroFormatters(t *testing.T) {
 	}
 }
 
-func Test_MiscFormatters(t *testing.T) {
+func Test_SalesforceFormatters(t *testing.T) {
 	type testRun struct {
 		name           string
 		id             string
@@ -219,11 +219,72 @@ func Test_MiscFormatters(t *testing.T) {
 
 	runs := []testRun{
 		{
-			name:           "customer order",
+			name:           "sf display",
 			id:             "1234",
-			fn:             FormatCustomerOrder,
-			expectedResult: "customer:order:1234",
+			fn:             FormatSFDisplayID,
+			expectedResult: "salesforce:display:1234",
 		},
+		{
+			name:           "sf display rate",
+			id:             "1234",
+			fn:             FormatSFDisplayRateID,
+			expectedResult: "salesforce:displayRate:1234",
+		},
+		{
+			name:           "sf bucket",
+			id:             "1234",
+			fn:             FormatSFBucketID,
+			expectedResult: "salesforce:bucket:1234",
+		},
+		{
+			name:           "sf matrix",
+			id:             "1234",
+			fn:             FormatSFMatrixID,
+			expectedResult: "salesforce:matrix:1234",
+		},
+		{
+			name:           "sf matrix line",
+			id:             "1234",
+			fn:             FormatSFMatrixLineID,
+			expectedResult: "salesforce:matrixLine:1234",
+		},
+		{
+			name:           "sf opportunity",
+			id:             "1234",
+			fn:             FormatSFOpportunityID,
+			expectedResult: "salesforce:opportunity:1234",
+		},
+		{
+			name:           "sf panel line item",
+			id:             "1234",
+			fn:             FormatSFPanelLineItemID,
+			expectedResult: "salesforce:panelLineItem:1234",
+		},
+		{
+			name:           "sf plan",
+			id:             "1234",
+			fn:             FormatSFPlanID,
+			expectedResult: "salesforce:plan:1234",
+		},
+	}
+
+	for _, test := range runs {
+		t.Run(test.name, func(t *testing.T) {
+			formattedId := test.fn(test.id)
+			assert.Equal(t, test.expectedResult, formattedId)
+		})
+	}
+}
+
+func Test_SpotchartFormatters(t *testing.T) {
+	type testRun struct {
+		name           string
+		id             string
+		fn             func(interface{}) string
+		expectedResult string
+	}
+
+	runs := []testRun{
 		{
 			name:           "spotchart display",
 			id:             "1234",
@@ -241,6 +302,31 @@ func Test_MiscFormatters(t *testing.T) {
 			id:             "1234",
 			fn:             FormatSpotChartSegmentID,
 			expectedResult: "spotchart:segment:1234",
+		},
+	}
+
+	for _, test := range runs {
+		t.Run(test.name, func(t *testing.T) {
+			formattedId := test.fn(test.id)
+			assert.Equal(t, test.expectedResult, formattedId)
+		})
+	}
+}
+
+func Test_MiscFormatters(t *testing.T) {
+	type testRun struct {
+		name           string
+		id             string
+		fn             func(interface{}) string
+		expectedResult string
+	}
+
+	runs := []testRun{
+		{
+			name:           "customer order",
+			id:             "1234",
+			fn:             FormatCustomerOrder,
+			expectedResult: "customer:order:1234",
 		},
 	}
 
@@ -491,7 +577,7 @@ func Test_QuattroGetters(t *testing.T) {
 	}
 }
 
-func Test_MiscGetters(t *testing.T) {
+func Test_SalesforceGetters(t *testing.T) {
 	type testRun struct {
 		name           string
 		externalIDs    []string
@@ -501,11 +587,72 @@ func Test_MiscGetters(t *testing.T) {
 
 	runs := []testRun{
 		{
-			name:           "customer order",
-			externalIDs:    []string{"customer:order:1234"},
+			name:           "sf display",
+			externalIDs:    []string{"salesforce:display:1234"},
 			expectedResult: "1234",
-			fn:             GetCustomerOrder,
+			fn:             GetSFDisplayID,
 		},
+		{
+			name:           "sf display rate",
+			externalIDs:    []string{"salesforce:displayRate:1234"},
+			expectedResult: "1234",
+			fn:             GetSFDisplayRateID,
+		},
+		{
+			name:           "sf bucket",
+			externalIDs:    []string{"salesforce:bucket:1234"},
+			expectedResult: "1234",
+			fn:             GetSFBucketID,
+		},
+		{
+			name:           "sf matrix",
+			externalIDs:    []string{"salesforce:matrix:1234"},
+			expectedResult: "1234",
+			fn:             GetSFMatrixID,
+		},
+		{
+			name:           "sf matrix line",
+			externalIDs:    []string{"salesforce:matrixLine:1234"},
+			expectedResult: "1234",
+			fn:             GetSFMatrixLineID,
+		},
+		{
+			name:           "sf opportunity",
+			externalIDs:    []string{"salesforce:opportunity:1234"},
+			expectedResult: "1234",
+			fn:             GetSFOpportunityID,
+		},
+		{
+			name:           "sf panel line item",
+			externalIDs:    []string{"salesforce:panelLineItem:1234"},
+			expectedResult: "1234",
+			fn:             GetSFPanelLineItemID,
+		},
+		{
+			name:           "sf plan",
+			externalIDs:    []string{"salesforce:plan:1234"},
+			expectedResult: "1234",
+			fn:             GetSFPlanID,
+		},
+	}
+
+	for _, test := range runs {
+		t.Run(test.name, func(t *testing.T) {
+			extId := test.fn(test.externalIDs)
+			assert.Equal(t, test.expectedResult, extId)
+		})
+	}
+}
+
+func Test_SpotchartGetters(t *testing.T) {
+	type testRun struct {
+		name           string
+		externalIDs    []string
+		fn             func([]string) string
+		expectedResult string
+	}
+
+	runs := []testRun{
 		{
 			name:           "spotchart display",
 			externalIDs:    []string{"spotchart:display:1234"},
@@ -523,6 +670,31 @@ func Test_MiscGetters(t *testing.T) {
 			externalIDs:    []string{"spotchart:segment:1234"},
 			expectedResult: "1234",
 			fn:             GetSpotChartSegment,
+		},
+	}
+
+	for _, test := range runs {
+		t.Run(test.name, func(t *testing.T) {
+			extId := test.fn(test.externalIDs)
+			assert.Equal(t, test.expectedResult, extId)
+		})
+	}
+}
+
+func Test_MiscGetters(t *testing.T) {
+	type testRun struct {
+		name           string
+		externalIDs    []string
+		fn             func([]string) string
+		expectedResult string
+	}
+
+	runs := []testRun{
+		{
+			name:           "customer order",
+			externalIDs:    []string{"customer:order:1234"},
+			expectedResult: "1234",
+			fn:             GetCustomerOrder,
 		},
 	}
 
