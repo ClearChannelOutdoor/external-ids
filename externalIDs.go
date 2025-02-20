@@ -49,11 +49,13 @@ const (
 	sfDisplayPrefix       = "salesforce:display:"
 	sfDisplayRatePrefix   = "salesforce:displayRate:"
 	sfBucketPrefix        = "salesforce:bucket:"
+	sfBucketNamePrefix    = "salesforce:bucketName:"
 	sfMatrixPrefix        = "salesforce:matrix:"
 	sfMatrixLinePrefix    = "salesforce:matrixLine:"
 	sfOpportunityPrefix   = "salesforce:opportunity:"
 	sfPanelLineItemPrefix = "salesforce:panelLineItem:"
 	sfPlanPrefix          = "salesforce:plan:"
+	sfPlanNamePrefix      = "salesforce:planName:"
 
 	// Spotchart Formats
 	spotChartDisplayPrefix = "spotchart:display:"
@@ -195,6 +197,10 @@ func FormatSFBucketID(id interface{}) string {
 	return format(sfBucketPrefix, fmt.Sprint(id))
 }
 
+func FormatSFBucketName(id interface{}) string {
+	return format(sfBucketNamePrefix, fmt.Sprint(id))
+}
+
 func FormatSFMatrixID(id interface{}) string {
 	return format(sfMatrixPrefix, fmt.Sprint(id))
 }
@@ -213,6 +219,10 @@ func FormatSFPanelLineItemID(id interface{}) string {
 
 func FormatSFPlanID(id interface{}) string {
 	return format(sfPlanPrefix, fmt.Sprint(id))
+}
+
+func FormatSFPlanNameID(id interface{}) string {
+	return format(sfPlanNamePrefix, fmt.Sprint(id))
 }
 
 // Spotchart Formatters
@@ -374,6 +384,10 @@ func GetSFBucketID(externalIDs []string) string {
 	return parseExternalID(sfBucketPrefix, externalIDs)
 }
 
+func GetSFBucketName(externalIDs []string) string {
+	return parseExternalID(sfBucketNamePrefix, externalIDs)
+}
+
 func GetSFMatrixID(externalIDs []string) string {
 	return parseExternalID(sfMatrixPrefix, externalIDs)
 }
@@ -392,6 +406,10 @@ func GetSFPanelLineItemID(externalIDs []string) string {
 
 func GetSFPlanID(externalIDs []string) string {
 	return parseExternalID(sfPlanPrefix, externalIDs)
+}
+
+func GetSFPlanNameID(externalIDs []string) string {
+	return parseExternalID(sfPlanNamePrefix, externalIDs)
 }
 
 // SpotChart Getters
