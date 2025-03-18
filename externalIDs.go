@@ -52,6 +52,7 @@ const (
 	sfBucketNamePrefix    = "salesforce:bucketName:"
 	sfMatrixPrefix        = "salesforce:matrix:"
 	sfMatrixLinePrefix    = "salesforce:matrixLine:"
+	sfNetworkPrefix       = "salesforce:network:"
 	sfOpportunityPrefix   = "salesforce:opportunity:"
 	sfPanelLineItemPrefix = "salesforce:panelLineItem:"
 	sfPlanPrefix          = "salesforce:plan:"
@@ -207,6 +208,10 @@ func FormatSFMatrixID(id interface{}) string {
 
 func FormatSFMatrixLineID(id interface{}) string {
 	return format(sfMatrixLinePrefix, fmt.Sprint(id))
+}
+
+func FormatSFNetworkID(id interface{}) string {
+	return format(sfNetworkPrefix, fmt.Sprint(id))
 }
 
 func FormatSFOpportunityID(oppID interface{}) string {
@@ -394,6 +399,10 @@ func GetSFMatrixID(externalIDs []string) string {
 
 func GetSFMatrixLineID(externalIDs []string) string {
 	return parseExternalID(sfMatrixLinePrefix, externalIDs)
+}
+
+func GetSFNetworkID(externalIDs []string) string {
+	return parseExternalID(sfNetworkPrefix, externalIDs)
 }
 
 func GetSFOpportunityID(externalIDs []string) string {
