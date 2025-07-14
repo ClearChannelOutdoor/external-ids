@@ -33,7 +33,7 @@ const (
 	ioProductMapIDPrefix   = "io:productMap:"
 
 	// Quattro Formats
-	quattroDbPrefix                 = "quattro_"
+	quattroDbLongformPrefix         = "quattro_"
 	quattroBookingPrefix            = ":booking:"
 	quattroCampaignPrefix           = ":campaign:"
 	quattroDetailPrefix             = ":detail:"
@@ -153,36 +153,36 @@ func FormatIOProductMap(id interface{}) string {
 }
 
 // Quattro Formatters
-func FormatQuattroCampaign(marketCode string, campaignId interface{}) string {
-	return formatQuattroKey(marketCode, quattroCampaignPrefix, fmt.Sprint(campaignId))
+func FormatQuattroCampaign(dbLongForm string, campaignId interface{}) string {
+	return formatQuattroKey(dbLongForm, quattroCampaignPrefix, fmt.Sprint(campaignId))
 }
 
-func FormatQuattroCampaignSegment(marketCode string, segmentId interface{}) string {
-	return formatQuattroKey(marketCode, quattroSegmentPrefix, fmt.Sprint(segmentId))
+func FormatQuattroCampaignSegment(dbLongForm string, segmentId interface{}) string {
+	return formatQuattroKey(dbLongForm, quattroSegmentPrefix, fmt.Sprint(segmentId))
 }
 
-func FormatQuattroCampaignDetail(marketCode string, detailId interface{}) string {
-	return formatQuattroKey(marketCode, quattroDetailPrefix, fmt.Sprint(detailId))
+func FormatQuattroCampaignDetail(dbLongForm string, detailId interface{}) string {
+	return formatQuattroKey(dbLongForm, quattroDetailPrefix, fmt.Sprint(detailId))
 }
 
-func FormatQuattroBookingID(sourceDbCode string, bookingID interface{}) string {
-	return formatQuattroKey(sourceDbCode, quattroBookingPrefix, fmt.Sprint(bookingID))
+func FormatQuattroBookingID(dbLongForm string, bookingID interface{}) string {
+	return formatQuattroKey(dbLongForm, quattroBookingPrefix, fmt.Sprint(bookingID))
 }
 
-func FormatQuattroDigitalBookingID(sourceDbCode string, bookingID interface{}) string {
-	return formatQuattroKey(sourceDbCode, quattroDigitalBookingPrefix, fmt.Sprint(bookingID))
+func FormatQuattroDigitalBookingID(dbLongForm string, bookingID interface{}) string {
+	return formatQuattroKey(dbLongForm, quattroDigitalBookingPrefix, fmt.Sprint(bookingID))
 }
 
-func FormatQuattroDisplayID(sourceDbCode string, panelID interface{}) string {
-	return formatQuattroKey(sourceDbCode, quattroDisplayID, fmt.Sprint(panelID))
+func FormatQuattroDisplayID(dbLongForm string, panelID interface{}) string {
+	return formatQuattroKey(dbLongForm, quattroDisplayID, fmt.Sprint(panelID))
 }
 
-func FormatQuattroMarketID(sourceDbCode string, marketID interface{}) string {
-	return formatQuattroKey(sourceDbCode, quattroMarketID, fmt.Sprint(marketID))
+func FormatQuattroMarketID(dbLongForm string, marketID interface{}) string {
+	return formatQuattroKey(dbLongForm, quattroMarketID, fmt.Sprint(marketID))
 }
 
-func FormatQuattroNetworkID(sourceDbCode string, digitalProductID interface{}) string {
-	return formatQuattroKey(sourceDbCode, quattroNetworkID, fmt.Sprint(digitalProductID))
+func FormatQuattroNetworkID(dbLongForm string, digitalProductID interface{}) string {
+	return formatQuattroKey(dbLongForm, quattroNetworkID, fmt.Sprint(digitalProductID))
 }
 
 // SF Formatters
@@ -335,44 +335,44 @@ func GetOrderNumber(externalIDs []string) string {
 
 // Quattro Getters
 
-func GetQuattroBookingID(sourceDbCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(sourceDbCode, quattroBookingPrefix, "")
+func GetQuattroBookingID(dbLongForm string, externalIDs []string) string {
+	prefix := formatQuattroKey(dbLongForm, quattroBookingPrefix, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
-func GetQuattroCampaignID(marketCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(marketCode, quattroCampaignPrefix, "")
+func GetQuattroCampaignID(dbLongForm string, externalIDs []string) string {
+	prefix := formatQuattroKey(dbLongForm, quattroCampaignPrefix, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
-func GetQuattroCampaignSegmentID(marketCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(marketCode, quattroSegmentPrefix, "")
+func GetQuattroCampaignSegmentID(dbLongForm string, externalIDs []string) string {
+	prefix := formatQuattroKey(dbLongForm, quattroSegmentPrefix, "")
 	extId := parseExternalID(prefix, externalIDs)
 	if extId != "" {
 		return extId
 	}
 
-	oldPrefix := formatQuattroKey(marketCode, oldQuattroCampaignSegmentPrefix, "")
+	oldPrefix := formatQuattroKey(dbLongForm, oldQuattroCampaignSegmentPrefix, "")
 	return parseExternalID(oldPrefix, externalIDs)
 }
 
-func GetQuattroDigitalBookingID(sourceDbCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(sourceDbCode, quattroDigitalBookingPrefix, "")
+func GetQuattroDigitalBookingID(dbLongForm string, externalIDs []string) string {
+	prefix := formatQuattroKey(dbLongForm, quattroDigitalBookingPrefix, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
-func GetQuattroDisplayID(sourceDbCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(sourceDbCode, quattroDisplayID, "")
+func GetQuattroDisplayID(dbLongForm string, externalIDs []string) string {
+	prefix := formatQuattroKey(dbLongForm, quattroDisplayID, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
-func GetQuattroMarketID(sourceDbCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(sourceDbCode, quattroMarketID, "")
+func GetQuattroMarketID(dbLongForm string, externalIDs []string) string {
+	prefix := formatQuattroKey(dbLongForm, quattroMarketID, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
-func GetQuattroNetworkID(sourceDbCode string, externalIDs []string) string {
-	prefix := formatQuattroKey(sourceDbCode, quattroNetworkID, "")
+func GetQuattroNetworkID(dbLongForm string, externalIDs []string) string {
+	prefix := formatQuattroKey(dbLongForm, quattroNetworkID, "")
 	return parseExternalID(prefix, externalIDs)
 }
 
@@ -436,8 +436,8 @@ func GetSpotChartSegment(externalIDs []string) string {
 
 /* helpers */
 
-func formatQuattroKey(marketCode string, entity string, id string) string {
-	quattroKey := format(quattroDbPrefix, marketCode)
+func formatQuattroKey(dbLongForm string, entity string, id string) string {
+	quattroKey := format(quattroDbLongformPrefix, dbLongForm)
 	prefix := format(quattroKey, entity)
 	return format(prefix, id)
 }
