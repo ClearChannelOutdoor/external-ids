@@ -136,7 +136,7 @@ func Test_IOFormatters(t *testing.T) {
 func Test_QuattroFormatters(t *testing.T) {
 	type testRun struct {
 		name           string
-		quattroDb      string
+		dbLongForm     string
 		id             string
 		fn             func(string, interface{}) string
 		expectedResult string
@@ -145,56 +145,56 @@ func Test_QuattroFormatters(t *testing.T) {
 	runs := []testRun{
 		{
 			name:           "booking",
-			quattroDb:      "quattro_chicago",
+			dbLongForm:     "quattro_chicago",
 			id:             "1234",
 			fn:             FormatQuattroBookingID,
 			expectedResult: "quattro_chicago:booking:1234",
 		},
 		{
 			name:           "campaign",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			id:             "1234",
 			fn:             FormatQuattroCampaign,
 			expectedResult: "quattro_chicago:campaign:1234",
 		},
 		{
 			name:           "campaign detail",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			id:             "1234",
 			fn:             FormatQuattroCampaignDetail,
 			expectedResult: "quattro_chicago:detail:1234",
 		},
 		{
 			name:           "campaign segment",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			id:             "1234",
 			fn:             FormatQuattroCampaignSegment,
 			expectedResult: "quattro_chicago:segment:1234",
 		},
 		{
 			name:           "digital booking",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			id:             "1234",
 			fn:             FormatQuattroDigitalBookingID,
 			expectedResult: "quattro_chicago:digitalBooking:1234",
 		},
 		{
 			name:           "display",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			id:             "1234",
 			fn:             FormatQuattroDisplayID,
 			expectedResult: "quattro_chicago:display:1234",
 		},
 		{
 			name:           "market",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			id:             "*",
 			fn:             FormatQuattroMarketID,
 			expectedResult: "quattro_chicago:market:*",
 		},
 		{
 			name:           "network",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			id:             "1234",
 			fn:             FormatQuattroNetworkID,
 			expectedResult: "quattro_chicago:network:1234",
@@ -203,7 +203,7 @@ func Test_QuattroFormatters(t *testing.T) {
 
 	for _, test := range runs {
 		t.Run(test.name, func(t *testing.T) {
-			formattedId := test.fn(test.quattroDb, test.id)
+			formattedId := test.fn(test.dbLongForm, test.id)
 			assert.Equal(t, test.expectedResult, formattedId)
 		})
 	}
@@ -462,7 +462,7 @@ func Test_IOGetters(t *testing.T) {
 func Test_QuattroGetters(t *testing.T) {
 	type testRun struct {
 		name           string
-		quattroDb      string
+		dbLongForm     string
 		externalIDs    []string
 		fn             func(string, []string) string
 		expectedResult string
@@ -471,98 +471,98 @@ func Test_QuattroGetters(t *testing.T) {
 	runs := []testRun{
 		{
 			name:           "booking",
-			quattroDb:      "quattro_chicago",
+			dbLongForm:     "quattro_chicago",
 			externalIDs:    []string{"quattro_chicago:booking:1234"},
 			fn:             GetQuattroBookingID,
 			expectedResult: "1234",
 		},
 		{
 			name:           "booking, wrong market",
-			quattroDb:      "quattro_el_paso",
+			dbLongForm:     "quattro_el_paso",
 			externalIDs:    []string{"quattro_chicago:booking:1234"},
 			fn:             GetQuattroBookingID,
 			expectedResult: "",
 		},
 		{
 			name:           "campaign",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			externalIDs:    []string{"quattro_chicago:campaign:1234"},
 			fn:             GetQuattroCampaignID,
 			expectedResult: "1234",
 		},
 		{
 			name:           "campaign, wrong market",
-			quattroDb:      "el_paso",
+			dbLongForm:     "quattro_el_paso",
 			externalIDs:    []string{"quattro_chicago:campaign:1234"},
 			fn:             GetQuattroCampaignID,
 			expectedResult: "",
 		},
 		{
 			name:           "campaign segment",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			externalIDs:    []string{"quattro_chicago:segment:1234"},
 			fn:             GetQuattroCampaignSegmentID,
 			expectedResult: "1234",
 		},
 		{
 			name:           "old campaign segment format",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			externalIDs:    []string{"quattro_chicago:campaignSegment:1234"},
 			fn:             GetQuattroCampaignSegmentID,
 			expectedResult: "1234",
 		},
 		{
 			name:           "campaign segment, wrong market",
-			quattroDb:      "chicago",
-			externalIDs:    []string{"el_paso:campaignSegment:1234"},
+			dbLongForm:     "quattro_chicago",
+			externalIDs:    []string{"quattro_el_paso:campaignSegment:1234"},
 			fn:             GetQuattroCampaignSegmentID,
 			expectedResult: "",
 		},
 		{
 			name:           "digital booking",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			externalIDs:    []string{"quattro_chicago:digitalBooking:1234"},
 			fn:             GetQuattroDigitalBookingID,
 			expectedResult: "1234",
 		},
 		{
 			name:           "digital booking, wrong market",
-			quattroDb:      "chicago",
-			externalIDs:    []string{"el_paso:digitalBooking:1234"},
+			dbLongForm:     "quattro_chicago",
+			externalIDs:    []string{"quattro_el_paso:digitalBooking:1234"},
 			fn:             GetQuattroDigitalBookingID,
 			expectedResult: "",
 		},
 		{
 			name:           "display",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			externalIDs:    []string{"quattro_chicago:display:1234"},
 			fn:             GetQuattroDisplayID,
 			expectedResult: "1234",
 		},
 		{
 			name:           "display, wrong market",
-			quattroDb:      "chicago",
-			externalIDs:    []string{"el_paso:display:1234"},
+			dbLongForm:     "quattro_chicago",
+			externalIDs:    []string{"quattro_el_paso:display:1234"},
 			fn:             GetQuattroDisplayID,
 			expectedResult: "",
 		},
 		{
 			name:           "market",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			externalIDs:    []string{"quattro_chicago:market:1234"},
 			fn:             GetQuattroMarketID,
 			expectedResult: "1234",
 		},
 		{
 			name:           "network",
-			quattroDb:      "chicago",
+			dbLongForm:     "quattro_chicago",
 			externalIDs:    []string{"quattro_chicago:network:1234"},
 			fn:             GetQuattroNetworkID,
 			expectedResult: "1234",
 		},
 		{
 			name:           "network, wrong market",
-			quattroDb:      "el_paso",
+			dbLongForm:     "quattro_el_paso",
 			externalIDs:    []string{"quattro_chicago:network:1234"},
 			fn:             GetQuattroNetworkID,
 			expectedResult: "",
@@ -571,7 +571,7 @@ func Test_QuattroGetters(t *testing.T) {
 
 	for _, test := range runs {
 		t.Run(test.name, func(t *testing.T) {
-			extId := test.fn(test.quattroDb, test.externalIDs)
+			extId := test.fn(test.dbLongForm, test.externalIDs)
 			assert.Equal(t, test.expectedResult, extId)
 		})
 	}
