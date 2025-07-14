@@ -492,7 +492,7 @@ func Test_QuattroGetters(t *testing.T) {
 		},
 		{
 			name:           "campaign, wrong market",
-			dbLongForm:     "el_paso",
+			dbLongForm:     "quattro_el_paso",
 			externalIDs:    []string{"quattro_chicago:campaign:1234"},
 			fn:             GetQuattroCampaignID,
 			expectedResult: "",
@@ -514,7 +514,7 @@ func Test_QuattroGetters(t *testing.T) {
 		{
 			name:           "campaign segment, wrong market",
 			dbLongForm:     "quattro_chicago",
-			externalIDs:    []string{"el_paso:campaignSegment:1234"},
+			externalIDs:    []string{"quattro_el_paso:campaignSegment:1234"},
 			fn:             GetQuattroCampaignSegmentID,
 			expectedResult: "",
 		},
@@ -528,7 +528,7 @@ func Test_QuattroGetters(t *testing.T) {
 		{
 			name:           "digital booking, wrong market",
 			dbLongForm:     "quattro_chicago",
-			externalIDs:    []string{"el_paso:digitalBooking:1234"},
+			externalIDs:    []string{"quattro_el_paso:digitalBooking:1234"},
 			fn:             GetQuattroDigitalBookingID,
 			expectedResult: "",
 		},
@@ -542,7 +542,7 @@ func Test_QuattroGetters(t *testing.T) {
 		{
 			name:           "display, wrong market",
 			dbLongForm:     "quattro_chicago",
-			externalIDs:    []string{"el_paso:display:1234"},
+			externalIDs:    []string{"quattro_el_paso:display:1234"},
 			fn:             GetQuattroDisplayID,
 			expectedResult: "",
 		},
@@ -562,7 +562,7 @@ func Test_QuattroGetters(t *testing.T) {
 		},
 		{
 			name:           "network, wrong market",
-			dbLongForm:     "el_paso",
+			dbLongForm:     "quattro_el_paso",
 			externalIDs:    []string{"quattro_chicago:network:1234"},
 			fn:             GetQuattroNetworkID,
 			expectedResult: "",

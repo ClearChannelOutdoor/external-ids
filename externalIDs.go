@@ -33,7 +33,7 @@ const (
 	ioProductMapIDPrefix   = "io:productMap:"
 
 	// Quattro Formats
-	quattroDbLongformPrefix         = "quattro_"
+	quattroDbLongFormPrefix         = "quattro_"
 	quattroBookingPrefix            = ":booking:"
 	quattroCampaignPrefix           = ":campaign:"
 	quattroDetailPrefix             = ":detail:"
@@ -437,7 +437,7 @@ func GetSpotChartSegment(externalIDs []string) string {
 /* helpers */
 
 func formatQuattroKey(dbLongForm string, entity string, id string) string {
-	quattroKey := format(quattroDbLongformPrefix, dbLongForm)
+	quattroKey := format(quattroDbLongFormPrefix, dbLongForm)
 	prefix := format(quattroKey, entity)
 	return format(prefix, id)
 }
